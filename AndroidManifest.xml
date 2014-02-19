@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.bisikletliulasim.map"
+    android:versionCode="4" android:versionName="1.3" >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission android:protectionLevel="signature"
+        android:name="com.bisikletliulasim.map.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.bisikletliulasim.map.permission.C2D_MESSAGE" />
+
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="14"/>
+    <application android:icon="@drawable/icon" android:theme="@android:style/Theme.Holo.Light"
+        android:label="@string/app_name" android:debuggable="false" android:name=".BUPApplication">
+        <activity android:name="com.bisikletliulasim.map.WebMapActivity"
+                  android:label="@string/app_name">
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN"/>
+                            <category android:name="android.intent.category.LAUNCHER"/>
+                        </intent-filter>
+        </activity>
+
+        <service android:name="com.parse.PushService" />
+        <receiver android:name="com.parse.ParseBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.bisikletliulasim.map" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+
+     <supports-screens
+          android:largeScreens="true"
+          android:normalScreens="true"
+          android:smallScreens="true"
+          android:resizeable="true"
+          android:anyDensity="true" />
+
+</manifest> 

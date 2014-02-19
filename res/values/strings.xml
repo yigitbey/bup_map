@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Bisikletli Ulaşım Haritası</string>
+    <string name="app_name">Bisikletli Ulaşım Haritası</string>
+    <string name="action_info">Hakkında</string>
+    <string name="settings">Ayarlar</string>
+    <string name="map">Harita</string>
+    <string name="transport_routes">Ulasim Amacli Bisiklet Yolu</string>
+    <string name="travel_routes">Gezi Amacli Bisiklet Yolu</string>
+    <string name="bus_lanes">Bisiklet Tasima Aparatli Otobus</string>
+    <string name="repairshop">Bisiklet Tamircileri</string>
+    <string name="BDI">Bisiklet Dostu Isletme</string>
+    <string name="rental">Bisiklet Kiralama</string>
+    <string name="park">Bisiklet Parki</string>
+    <string name="street_drain">Tehlikeli Mazgal</string>
+    <string name="ferry">Vapur Iskelesi</string>
+    <string name="public_transport">Toplu Tasima</string>
+    <string name="about_map">
+        Eksik gordugunuz bilgileri http://bit.ly/bup_harita adresinden bize yollayabilirsiniz.
+    </string>
+    <string name="about_updates">
+        Haritadaki noktalari surekli olarak guncelliyoruz.
+    </string>
+</resources>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:id="@+id/ScrollView01"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_column="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="#568ac7">
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="#ffffff">
+
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_column="0"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/transport_lane"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY"
+                    android:longClickable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transport_routes"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/travel_lane"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/travel_routes"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/bus_lane"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bus_lanes"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/repair"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repairshop"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/bdi"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/BDI"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/rent"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rental"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/park"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/park"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/skull"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/street_drain"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/harbor"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ferry"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:layout_column="0">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/toplutasima"
+                    android:maxHeight="24dp"
+                    android:maxWidth="24dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/public_transport"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_updates"
+                    android:id="@+id/textView3"
+                    android:layout_column="1"
+                    android:autoLink="web"
+                    android:textIsSelectable="true"
+                    android:textSize="12dp"
+                    android:paddingRight="30dp" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_map"
+                    android:id="@+id/textView3"
+                    android:layout_column="1"
+                    android:autoLink="web"
+                    android:textSize="12dp"
+                    android:paddingRight="30dp" />
+            </TableRow>
+
+            <Button
+                android:id="@+id/dialogButtonOK"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:text=" Ok "
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_below="@+id/image"
+                />
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,13 @@
+com.bisikletliulasim.map.webmap.R$drawable: int icon
+com.bisikletliulasim.map.webmap.R$id: int action_info
+com.bisikletliulasim.map.webmap.R$id: int action_settings
+com.bisikletliulasim.map.webmap.R$id: int webview
+com.bisikletliulasim.map.webmap.R$layout: int main
+com.bisikletliulasim.map.webmap.R$menu: int main_activity_actions
+com.bisikletliulasim.map.webmap.R$string: int action_info
+com.bisikletliulasim.map.webmap.R$string: int app_name
+com.bisikletliulasim.map.webmap.R$string: int hello
+com.bisikletliulasim.map.webmap.R$string: int map
+com.bisikletliulasim.map.webmap.R$string: int settings
+com.bisikletliulasim.map.WebMapActivity
+com.bisikletliulasim.map.WebMapActivity: WebMapActivity()
