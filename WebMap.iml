@@ -13,6 +13,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="google-play-services_lib" exported="" />
     <orderEntry type="library" name="Parse-1.4.1" level="project" />
   </component>
 </module>
