@@ -50,12 +50,8 @@ import java.util.Map;
 public class GMapsActivity extends Activity implements LocationListener {
 
     private static final String LOG_TAG = "BUPHarita";
-
-
     HashMap json_urls = new HashMap();
-
     private Location mostRecentLocation;
-
     private GoogleMap map;
 
     public boolean isDeviceConnectedToInternet() {
@@ -73,6 +69,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.gmaps);
+        getLocation();
         PushService.setDefaultPushCallback(this, GMapsActivity.class);
         ParseAnalytics.trackAppOpened(getIntent());
 
@@ -87,19 +84,9 @@ public class GMapsActivity extends Activity implements LocationListener {
         json_urls.put(Constants.LEISURE_ROADS, Constants.LEISURE_ROADS_JSON);
         json_urls.put(Constants.IETT_ROADS, Constants.IETT_ROADS_JSON);
 
-        getLocation();
         setupMap();
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_activity_actions, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
 
     private void setupMap(){
         // Get a handle to the Map Fragment
@@ -144,17 +131,6 @@ public class GMapsActivity extends Activity implements LocationListener {
         locationManager.requestLocationUpdates(provider, 1, 0, this);
         mostRecentLocation = locationManager.getLastKnownLocation(provider);
      }
-
-    /** Sets the mostRecentLocation object to the current location of the device **/
-    @Override
-    public void onLocationChanged(Location location) {
-        mostRecentLocation = location;
-
-        Double lat = mostRecentLocation.getLatitude();
-        Double lon = mostRecentLocation.getLongitude();
-
-        final String newLocationJS = "javascript:changedLocation(" + lat + "," +  lon + ")";
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -412,7 +388,26 @@ public class GMapsActivity extends Activity implements LocationListener {
         return window;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+
+    /** Sets the mostRecentLocation object to the current location of the device **/
+    @Override
+    public void onLocationChanged(Location location) {
+        mostRecentLocation = location;
+
+        Double lat = mostRecentLocation.getLatitude();
+        Double lon = mostRecentLocation.getLongitude();
+
+        final String newLocationJS = "javascript:changedLocation(" + lat + "," +  lon + ")";
+    }
+    
     @Override
     public void onResume() {
         super.onResume();
