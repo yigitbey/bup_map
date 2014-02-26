@@ -27,6 +27,48 @@ public final class Constants{
             R.drawable.harbor,
             R.drawable.toplutasima,
     };
+    public static String[] REPAIRSHOP_INFO={
+            "title",
+            "address",
+            "web",
+            "mobile",
+    };
+    public static String[] BDI_INFO={
+            "title",
+            "address",
+            "web",
+            "mobile",
+            "campaign",
+    };
+    public static String[] DRAIN_INFO={
+            "title",
+            "description",
+            "image",
+            "mobile",
+    };
+    public static String[] RENT_INFO={
+            "title",
+            "description",
+            "mobile",
+            "image",
+    };
+    public static String[] PARK_INFO={
+            "title",
+            "description",
+            "image",
+            "mobile",
+    };
+    public static String[] FERRY_INFO={
+            "title",
+            "description",
+            "mobile",
+    };
+    public static String[] PUBLIC_TRANSPORT_INFO={
+            "title",
+            "description",
+            "mobile",
+    };
+
 
 }
 

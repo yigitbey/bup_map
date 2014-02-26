@@ -4,19 +4,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.test.suitebuilder.TestSuiteBuilder;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,13 +20,9 @@ import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import android.widget.TextView;
 
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -50,12 +41,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.StreamHandler;
 
 public class GMapsActivity extends Activity implements LocationListener {
 
@@ -73,9 +62,7 @@ public class GMapsActivity extends Activity implements LocationListener {
     private static final String ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari&format=GEOJson";
 
     HashMap json_urls = new HashMap();
-    HashMap markers = new HashMap();
 
-    private WebView webView;
     private Location mostRecentLocation;
 
     private GoogleMap map;
@@ -342,7 +329,6 @@ public class GMapsActivity extends Activity implements LocationListener {
     public InfoWindowAdapter info_window(){
         InfoWindowAdapter window = new InfoWindowAdapter() {
 
-
             @Override
             public View getInfoWindow(Marker marker) {
                 if (marker != null
@@ -359,122 +345,27 @@ public class GMapsActivity extends Activity implements LocationListener {
                 try{
                     final JSONObject marker_info = new JSONObject(marker.getSnippet());
 
-                    if (marker_info.getInt("type") == Constants.REPAIRSHOP){
-                        v = getLayoutInflater().inflate(R.layout.repairshop_marker, null);
+                    v = getLayoutInflater().inflate(R.layout.marker_bubble, null);
 
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(marker_info.getString("title"));
-
-                        TextView web = (TextView) v.findViewById(R.id.web);
-                        web.setText(marker_info.getString("web"));
-
-                        TextView mobile = (TextView) v.findViewById(R.id.mobile_number);
-                        mobile.setText(marker_info.getString("mobile"));
-
-                    }
-                    else if (marker_info.getInt("type") == Constants.BDI){
-                        v = getLayoutInflater().inflate(R.layout.bdi_marker, null);
-
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(marker_info.getString("title"));
-
-                        TextView campaign = (TextView) v.findViewById(R.id.campaign);
-                        campaign.setText(marker_info.getString("campaign"));
-
-                        TextView web = (TextView) v.findViewById(R.id.web);
-                        web.setText(marker_info.getString("web"));
-
-                        TextView mobile = (TextView) v.findViewById(R.id.mobile_number);
-                        mobile.setText(marker_info.getString("mobile"));
-
-                    }
-                    else if (marker_info.getInt("type") == Constants.RENT){
-                        v = getLayoutInflater().inflate(R.layout.rent_marker, null);
-
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(marker_info.getString("title"));
-
-                        TextView description = (TextView) v.findViewById(R.id.description);
-                        description.setText(marker_info.getString("description"));
-
-                    }
-                    else if (marker_info.getInt("type") == Constants.FERRY){
-                        v = getLayoutInflater().inflate(R.layout.ferry_marker, null);
-
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(marker_info.getString("title"));
-
-                        TextView description = (TextView) v.findViewById(R.id.description);
-                        description.setText(marker_info.getString("description"));
-
-                    }
-                    else if (marker_info.getInt("type") == Constants.PARK){
-                        v = getLayoutInflater().inflate(R.layout.park_marker, null);
-
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(marker_info.getString("title"));
-
-                        TextView description = (TextView) v.findViewById(R.id.description);
-                        description.setText(marker_info.getString("description"));
-
-                    }
-                    else if (marker_info.getInt("type") == Constants.DRAIN){
-                        v = getLayoutInflater().inflate(R.layout.drain_marker, null);
-
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(marker_info.getString("title"));
-
-
-                        final ImageView topImage = (ImageView) v.findViewById(R.id.topImage);
-                        String url = marker_info.getString("image");
-                        AQuery androidAQuery = new AQuery(getApplicationContext());
-
-                        if (url != null && !url.equalsIgnoreCase("null")
-                                  && !url.equalsIgnoreCase("")) {
-                                androidAQuery.ajax(url,Bitmap.class,0,
-                                        new AjaxCallback<Bitmap>(){
-                                            @Override
-                                            public void callback(String url, Bitmap object, AjaxStatus status) {
-                                                super.callback(url, object, status);
-                                                topImage.setImageBitmap(object);
-                                                getInfoWindow(marker);
-                                            }
-                                        }
-                                );
-                        }
-
-
-                        TextView description = (TextView) v.findViewById(R.id.description);
-                        description.setText(marker_info.getString("description"));
-
-                    }
-                    else if (marker_info.getInt("type") == Constants.PUBLIC_TRANSPORT){
-
-                        v = getLayoutInflater().inflate(R.layout.public_transport, null);
-
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(marker_info.getString("title"));
-
-                        TextView description = (TextView) v.findViewById(R.id.description);
-                        description.setText(marker_info.getString("description"));
-
-                    }
+                    TextView title = (TextView) v.findViewById(R.id.title);
+                    title.setText(marker_info.getString("title"));
 
                     map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-
                         @Override
-                        public void onInfoWindowClick(Marker marker){
+                        public void onInfoWindowClick(Marker marker) {
                             try{
-                                Intent intent = new Intent(GMapsActivity.this, InfoWindowActivity.class);
-                                JSONObject marker_info = new JSONObject(marker.getSnippet());
-                                intent.putExtra("title", marker_info.getString("title"));
-                                intent.putExtra("address", marker_info.getString("address"));
-                                intent.putExtra("description", marker_info.getString("description"));
-                                startActivity(intent);
+                                Intent infoIntent = new Intent(GMapsActivity.this, InfoWindowActivity.class);
+                                for (Iterator<String> key = marker_info.keys(); key.hasNext();){
+                                    String key_name = key.next();
+                                    infoIntent.putExtra(key_name, marker_info.getString(key_name));
+                                }
+                                infoIntent.putExtra("type", marker_info.getInt("type"));
+                                startActivity(infoIntent);
                             }
                             catch (JSONException ex){
                                 Log.e(LOG_TAG, ex.toString());
                             }
+
                         }
                     });
 

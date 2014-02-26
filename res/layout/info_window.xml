@@ -3,37 +3,88 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:visibility="visible">
 
     <ImageView
-        android:layout_width="189dp"
-        android:layout_height="105dp"
-        android:id="@+id/imageView"
+        android:layout_width="378dp"
+        android:layout_height="210dp"
+        android:id="@+id/topImage"
         android:src="@drawable/no_image"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:contentDescription="no_image"
+         />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/info_icon"
+            android:layout_gravity="left"
+            android:src="@drawable/repair_mono" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dsadasda"
+            android:id="@+id/title"
+            android:layout_margin="5dp"
+            android:layout_gravity="left"
+            android:textAppearance="@style/info_title"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="310dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="title"
-        android:id="@+id/title"
-        android:layout_margin="5dp" />
+        android:text=""
+        android:id="@+id/address"
+        android:layout_margin="5dp"
+        android:visibility="gone"/>
 
     <TextView
-        android:layout_width="310dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="description"
+        android:text=""
+        android:id="@+id/campaign"
+        android:layout_margin="5dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
         android:id="@+id/description"
         android:layout_margin="5dp"
         android:linksClickable="true"
-        android:autoLink="web" />
+        android:autoLink="web"
+        android:visibility="gone" />
+
     <TextView
-        android:layout_width="310dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="address"
-        android:id="@+id/address"
-        android:layout_margin="5dp" />
+        android:text=""
+        android:autoLink="web"
+        android:id="@+id/web"
+        android:layout_margin="5dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/mobile"
+        android:layout_margin="5dp"
+        android:visibility="gone"
+        android:autoLink="phone" />
+
 
 
 </LinearLayout>

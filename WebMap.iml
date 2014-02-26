@@ -15,7 +15,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="google-play-services_lib" exported="" />
     <orderEntry type="library" name="Parse-1.4.1" level="project" />
-    <orderEntry type="library" name="android-query.0.26.7" level="project" />
+    <orderEntry type="library" name="picasso-2.2.0" level="project" />
   </component>
 </module>
 
