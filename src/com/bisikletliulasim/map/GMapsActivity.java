@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,14 +12,12 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.webkit.WebView;
 import android.widget.Button;
 
 import android.widget.TextView;
@@ -31,6 +30,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.parse.ParseAnalytics;
 import com.parse.PushService;
 
@@ -48,8 +49,6 @@ import java.util.Map;
 
 public class GMapsActivity extends Activity implements LocationListener {
 
-    private static String NO_CONNECTION = "file:///android_asset/no_connection.html";
-
     private static final String LOG_TAG = "BUPHarita";
 
     private static final String REPAIRSHOP_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20bisiklet_tamircileri&format=GEOJson";
@@ -59,7 +58,9 @@ public class GMapsActivity extends Activity implements LocationListener {
     private static final String DRAIN_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27mazgal%27)&format=GEOJson";
     private static final String FERRY_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27iskele%27)&format=GEOJson";
     private static final String PUBLIC_TRANSPORT_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27toplutasima%27)&format=GEOJson";
-    private static final String ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari&format=GEOJson";
+    private static final String TRANSPORT_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27ulasim%27)&format=GEOJson";
+    private static final String LEISURE_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27gezi%27)&format=GEOJson";
+    private static final String IETT_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27iett%27)&format=GEOJson";
 
     HashMap json_urls = new HashMap();
 
@@ -84,9 +85,6 @@ public class GMapsActivity extends Activity implements LocationListener {
         setContentView(R.layout.gmaps);
         PushService.setDefaultPushCallback(this, GMapsActivity.class);
         ParseAnalytics.trackAppOpened(getIntent());
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-        StrictMode.setThreadPolicy(policy);
 
         json_urls.put(Constants.REPAIRSHOP, REPAIRSHOP_JSON);
         json_urls.put(Constants.BDI, BDI_JSON);
@@ -95,6 +93,9 @@ public class GMapsActivity extends Activity implements LocationListener {
         json_urls.put(Constants.DRAIN, DRAIN_JSON);
         json_urls.put(Constants.FERRY, FERRY_JSON);
         json_urls.put(Constants.PUBLIC_TRANSPORT, PUBLIC_TRANSPORT_JSON);
+        json_urls.put(Constants.TRANSPORT_ROADS, TRANSPORT_ROADS_JSON);
+        json_urls.put(Constants.LEISURE_ROADS, LEISURE_ROADS_JSON);
+        json_urls.put(Constants.IETT_ROADS, IETT_ROADS_JSON);
 
         getLocation();
         setupMap();
@@ -128,6 +129,7 @@ public class GMapsActivity extends Activity implements LocationListener {
                     try {
                         Map.Entry pairs = (Map.Entry) it.next();
                         getJson(pairs.getValue().toString(), Integer.parseInt(pairs.getKey().toString()));
+
                     } catch (IOException e) {
                         Log.e(LOG_TAG, "Cannot retrive json", e);
                         return;
@@ -162,13 +164,6 @@ public class GMapsActivity extends Activity implements LocationListener {
         Double lon = mostRecentLocation.getLongitude();
 
         final String newLocationJS = "javascript:changedLocation(" + lat + "," +  lon + ")";
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        setupMap();
     }
 
     @Override
@@ -198,7 +193,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         dialog.show();
     }
 
-    protected void getJson(String json_url, int type) throws IOException, JSONException {
+    protected void getJson(String json_url,final int type) throws IOException, JSONException {
         HttpURLConnection conn = null;
         final StringBuilder json = new StringBuilder();
         try {
@@ -229,7 +224,12 @@ public class GMapsActivity extends Activity implements LocationListener {
         runOnUiThread(new Runnable() {
             public void run() {
                 try {
-                    createMarkersFromJson(jsonobj.toString());
+                    if (type == Constants.TRANSPORT_ROADS || type == Constants.LEISURE_ROADS || type == Constants.IETT_ROADS){
+                        createRoadsFromJson(jsonobj.toString());
+                    }
+                    else{
+                        createMarkersFromJson(jsonobj.toString());
+                    }
                 } catch (JSONException e) {
 
                     Log.e(LOG_TAG, "Error processing JSON: " + e.toString());
@@ -294,6 +294,49 @@ public class GMapsActivity extends Activity implements LocationListener {
         }
 
         return marker_info;
+    }
+
+    void createRoadsFromJson(String json) throws  JSONException{
+        JSONObject jsonObject = new JSONObject(json);
+        JSONArray jsonArray = jsonObject.getJSONArray("features");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObj = jsonArray.getJSONObject(i);
+
+            JSONObject propertiesObj = jsonObj.getJSONObject("properties");
+            JSONObject geometryObj = jsonObj.getJSONObject("geometry");
+            JSONArray coordinates = geometryObj.getJSONArray("coordinates");
+
+            JSONObject route_info = new JSONObject();
+            route_info.put("title", propertiesObj.getString("name"));
+            route_info.put("description", propertiesObj.getString("description"));
+            String category = propertiesObj.getString("kategori");
+
+            int color = 0;
+            if (category.equals("ulasim")){
+                color = Color.parseColor("#3E7BB6");
+            }
+            else if (category.equals("gezi")){
+                color = Color.parseColor("#FF6600");
+            }
+            else if (category.equals("iett")){
+                color = Color.parseColor("#A53ED5");
+            }
+
+            PolylineOptions line = new PolylineOptions().width(8).color(color).geodesic(true);
+            coordinates = (JSONArray) coordinates.get(0);
+
+            for (int k=0; k < coordinates.length(); k++){
+                JSONArray ko = (JSONArray) coordinates.get(k);
+                Double lat = ko.getDouble(1);
+                Double lon = ko.getDouble(0);
+
+                line.add(new LatLng(lat, lon));
+            }
+
+            Polyline polyline = map.addPolyline(line);
+
+        }
+
     }
 
     void createMarkersFromJson(String json) throws JSONException {
@@ -380,6 +423,11 @@ public class GMapsActivity extends Activity implements LocationListener {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //setupMap();
+    }
 
     @Override
     public void onProviderDisabled(String provider) {

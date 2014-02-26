@@ -8,6 +8,9 @@ public final class Constants{
     public static final int DRAIN = 4;
     public static final int FERRY = 5;
     public static final int PUBLIC_TRANSPORT = 6;
+    public static final int TRANSPORT_ROADS = 7;
+    public static final int LEISURE_ROADS = 8;
+    public static final int IETT_ROADS = 9;
 
     public static final int[] MARKER_TYPES = {
             REPAIRSHOP,
