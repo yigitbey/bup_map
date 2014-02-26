@@ -54,15 +54,6 @@ public class GMapsActivity extends Activity implements LocationListener {
     private Location mostRecentLocation;
     private GoogleMap map;
 
-    public boolean isDeviceConnectedToInternet() {
-        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-
-        return isConnected;
-
-    }
-
     @Override
     /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState) {
@@ -388,6 +379,13 @@ public class GMapsActivity extends Activity implements LocationListener {
         return window;
     }
 
+    public boolean isDeviceConnectedToInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -407,7 +405,7 @@ public class GMapsActivity extends Activity implements LocationListener {
 
         final String newLocationJS = "javascript:changedLocation(" + lat + "," +  lon + ")";
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
