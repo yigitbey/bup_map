@@ -12,6 +12,18 @@ public final class Constants{
     public static final int LEISURE_ROADS = 8;
     public static final int IETT_ROADS = 9;
 
+
+    public static final String REPAIRSHOP_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20bisiklet_tamircileri&format=GEOJson";
+    public static final String BDI_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20bisiklet_dostu_isletmeler&format=GEOJson";
+    public static final String RENT_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27kiralama%27)&format=GEOJson";
+    public static final String PARK_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27park%27)&format=GEOJson";
+    public static final String DRAIN_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27mazgal%27)&format=GEOJson";
+    public static final String FERRY_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27iskele%27)&format=GEOJson";
+    public static final String PUBLIC_TRANSPORT_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27toplutasima%27)&format=GEOJson";
+    public static final String TRANSPORT_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27ulasim%27)&format=GEOJson";
+    public static final String LEISURE_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27gezi%27)&format=GEOJson";
+    public static final String IETT_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27iett%27)&format=GEOJson";
+
     public static final int[] MARKER_TYPES = {
             REPAIRSHOP,
             BDI,

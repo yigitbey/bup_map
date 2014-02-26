@@ -51,16 +51,6 @@ public class GMapsActivity extends Activity implements LocationListener {
 
     private static final String LOG_TAG = "BUPHarita";
 
-    private static final String REPAIRSHOP_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20bisiklet_tamircileri&format=GEOJson";
-    private static final String BDI_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20bisiklet_dostu_isletmeler&format=GEOJson";
-    private static final String RENT_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27kiralama%27)&format=GEOJson";
-    private static final String PARK_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27park%27)&format=GEOJson";
-    private static final String DRAIN_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27mazgal%27)&format=GEOJson";
-    private static final String FERRY_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27iskele%27)&format=GEOJson";
-    private static final String PUBLIC_TRANSPORT_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20misc%20WHERE%20kategori%20%20IN%20(%27toplutasima%27)&format=GEOJson";
-    private static final String TRANSPORT_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27ulasim%27)&format=GEOJson";
-    private static final String LEISURE_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27gezi%27)&format=GEOJson";
-    private static final String IETT_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27iett%27)&format=GEOJson";
 
     HashMap json_urls = new HashMap();
 
@@ -86,16 +76,16 @@ public class GMapsActivity extends Activity implements LocationListener {
         PushService.setDefaultPushCallback(this, GMapsActivity.class);
         ParseAnalytics.trackAppOpened(getIntent());
 
-        json_urls.put(Constants.REPAIRSHOP, REPAIRSHOP_JSON);
-        json_urls.put(Constants.BDI, BDI_JSON);
-        json_urls.put(Constants.RENT, RENT_JSON);
-        json_urls.put(Constants.PARK, PARK_JSON);
-        json_urls.put(Constants.DRAIN, DRAIN_JSON);
-        json_urls.put(Constants.FERRY, FERRY_JSON);
-        json_urls.put(Constants.PUBLIC_TRANSPORT, PUBLIC_TRANSPORT_JSON);
-        json_urls.put(Constants.TRANSPORT_ROADS, TRANSPORT_ROADS_JSON);
-        json_urls.put(Constants.LEISURE_ROADS, LEISURE_ROADS_JSON);
-        json_urls.put(Constants.IETT_ROADS, IETT_ROADS_JSON);
+        json_urls.put(Constants.REPAIRSHOP, Constants.REPAIRSHOP_JSON);
+        json_urls.put(Constants.BDI, Constants.BDI_JSON);
+        json_urls.put(Constants.RENT, Constants.RENT_JSON);
+        json_urls.put(Constants.PARK, Constants.PARK_JSON);
+        json_urls.put(Constants.DRAIN, Constants.DRAIN_JSON);
+        json_urls.put(Constants.FERRY, Constants.FERRY_JSON);
+        json_urls.put(Constants.PUBLIC_TRANSPORT, Constants.PUBLIC_TRANSPORT_JSON);
+        json_urls.put(Constants.TRANSPORT_ROADS, Constants.TRANSPORT_ROADS_JSON);
+        json_urls.put(Constants.LEISURE_ROADS, Constants.LEISURE_ROADS_JSON);
+        json_urls.put(Constants.IETT_ROADS, Constants.IETT_ROADS_JSON);
 
         getLocation();
         setupMap();
