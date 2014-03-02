@@ -1,6 +1,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/action_info"
+    <item
+        android:id="@+id/action_public_transport"
+        android:icon="@drawable/busstop_action"
+        android:title="@string/action_public_transport"
+        android:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/toggle_pt"
+                android:title="@string/show_pt"
+                android:enabled="false"
+                android:icon="@drawable/btn_check_off"
+                />
+            <item
+                android:id="@+id/show_pt_info"
+                android:title="@string/show_pt_info"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:enabled="false"
+                  />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_info"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/action_info"
         android:showAsAction="ifRoom" />

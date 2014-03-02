@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Bisikletli Ulaşım Haritası</string>
-    <string name="app_name">Bisikletli Ulaşım Haritası</string>
+    <string name="app_name">Bisikletli Ulaşım</string>
     <string name="action_info">Hakkında</string>
+    <string name="action_public_transport">Toplu Tasima</string>
     <string name="settings">Ayarlar</string>
     <string name="map">Harita</string>
     <string name="transport_routes">Ulasim Amacli Bisiklet Yolu</string>
@@ -21,4 +22,14 @@
     <string name="about_updates">
         Haritadaki noktalari surekli olarak guncelliyoruz.
     </string>
+    <string name="show_pt">
+        Toplu tasima
+    </string>
+    <string name="hide_pt">
+        Toplu tasima
+    </string>
+    <string name="show_pt_info">
+        Toplu Tasimada bisiklet
+    </string>
+
 </resources>

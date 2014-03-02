@@ -1,10 +1,12 @@
 package com.bisikletliulasim.map;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ public class InfoWindowActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.info_window);
         Intent thisIntent = getIntent();
 
@@ -35,7 +38,7 @@ public class InfoWindowActivity extends Activity {
 
         switch (type){
             case Constants.REPAIRSHOP:
-                topImage.setImageResource(R.drawable.repair_top);
+                topImage.setImageResource(R.drawable.repair_noimage);
 
                 info_icon.setImageResource(R.drawable.repair);
                 for (String key: Constants.REPAIRSHOP_INFO){
@@ -53,9 +56,11 @@ public class InfoWindowActivity extends Activity {
                         view.setVisibility(View.VISIBLE);
                     }
                 }
+                topImage.setVisibility(View.VISIBLE);
                 break;
 
             case Constants.BDI:
+                topImage.setImageResource(R.drawable.bdi_noimage);
                 info_icon.setImageResource(R.drawable.bdi);
                 for (String key: Constants.BDI_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
@@ -73,6 +78,8 @@ public class InfoWindowActivity extends Activity {
                         view.setVisibility(View.VISIBLE);
                     }
                 }
+                topImage.setVisibility(View.VISIBLE);
+
                 break;
 
             case Constants.RENT:
@@ -80,6 +87,7 @@ public class InfoWindowActivity extends Activity {
                 title_view.setText(marker_info.get("title"));
                 description_view.setText(marker_info.get("description"));
                 String rent_image_url= marker_info.get("image");
+
                 for (String key: Constants.RENT_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
@@ -97,6 +105,7 @@ public class InfoWindowActivity extends Activity {
                 break;
 
             case Constants.DRAIN:
+                topImage.setImageResource(R.drawable.drain_noimage);
                 info_icon.setImageResource(R.drawable.skull);
                 for (String key: Constants.DRAIN_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
@@ -104,9 +113,10 @@ public class InfoWindowActivity extends Activity {
                 title_view.setText(marker_info.get("title"));
                 description_view.setText(marker_info.get("description"));
                 String drain_image_url = marker_info.get("image");
+
                 Picasso.with(getApplicationContext())
                         .load(drain_image_url)
-                        .placeholder(R.drawable.no_image)
+                        .placeholder(R.drawable.drain_noimage)
                         .resize(960,600)
                         .centerCrop()
                         .into(topImage);
@@ -129,6 +139,7 @@ public class InfoWindowActivity extends Activity {
                 title_view.setText(marker_info.get("title"));
                 description_view.setText(marker_info.get("description"));
                 String park_image_url = marker_info.get("image");
+
                 Picasso.with(getApplicationContext())
                         .load(park_image_url)
                         .placeholder(R.drawable.no_image)
@@ -180,10 +191,7 @@ public class InfoWindowActivity extends Activity {
                 }
                 break;
 
-
     }
-
-
 
 
     }

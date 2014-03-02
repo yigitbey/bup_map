@@ -2,6 +2,6 @@
 <resources>
     <style name="info_title">
         <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
     </style>
 </resources>

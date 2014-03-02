@@ -11,4 +11,15 @@
         android:text="title"
         android:padding="5dp" />
 
- </LinearLayout>
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Detay >>"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/button"
+        android:background="#eeebe4"
+        android:ellipsize="start" />
+
+</LinearLayout>

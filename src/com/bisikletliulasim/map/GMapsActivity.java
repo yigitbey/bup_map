@@ -53,6 +53,9 @@ public class GMapsActivity extends Activity implements LocationListener {
     HashMap json_urls = new HashMap();
     private Location mostRecentLocation;
     private GoogleMap map;
+    HashMap bus_polylines = new HashMap();
+    HashMap pt_markers = new HashMap();
+    Menu top_menu;
 
     @Override
     /** Called when the activity is first created. */
@@ -88,7 +91,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         LatLng currentLocation = new LatLng(lat, lon);
 
         map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
 
         new Thread(new Runnable() {
             public void run() {
@@ -98,12 +101,13 @@ public class GMapsActivity extends Activity implements LocationListener {
                         Map.Entry pairs = (Map.Entry) it.next();
                         getJson(pairs.getValue().toString(), Integer.parseInt(pairs.getKey().toString()));
 
-                    } catch (IOException e) {
-                        Log.e(LOG_TAG, "Cannot retrive json", e);
+                    }
+                    catch (IOException e) {
+                        Log.e(LOG_TAG, "Cannot retrieve json", e);
                         return;
                     }
                     catch (JSONException ex){
-                        Log.e(LOG_TAG, "Cannot retrive json", ex);
+                        Log.e(LOG_TAG, "Cannot retrieve json", ex);
                         return;
                     }
                 }
@@ -129,8 +133,39 @@ public class GMapsActivity extends Activity implements LocationListener {
             case R.id.action_info:
                 openInfo();
                 return true;
+            case R.id.toggle_pt:
+                toggle_pt_markers();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void toggle_pt_markers(){
+        MenuItem toggler = top_menu.findItem(R.id.toggle_pt);
+        Iterator it = bus_polylines.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            Polyline line = (Polyline) pairs.getValue();
+            if (line.isVisible()){
+                line.setVisible(false);
+                toggler.setIcon(R.drawable.btn_check_off);
+            }
+            else{
+                line.setVisible(true);
+                toggler.setIcon(R.drawable.btn_check_on);
+            }
+        }
+        it = pt_markers.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            Marker marker = (Marker) pairs.getValue();
+            if (marker.isVisible()){
+                marker.setVisible(false);
+            }
+            else{
+                marker.setVisible(true);
+            }
         }
     }
 
@@ -291,7 +326,12 @@ public class GMapsActivity extends Activity implements LocationListener {
             }
 
             Polyline polyline = map.addPolyline(line);
+            if (category.equals("iett")){
+                polyline.setVisible(false);
+                bus_polylines.put(polyline.getId(), polyline);
+            }
 
+            top_menu.findItem(R.id.toggle_pt).setEnabled(true);
         }
 
     }
@@ -314,13 +354,21 @@ public class GMapsActivity extends Activity implements LocationListener {
             InfoWindowAdapter window = info_window();
             map.setInfoWindowAdapter(window);
 
+            boolean visible = true;
+            if (marker_type == Constants.PUBLIC_TRANSPORT || marker_type == Constants.FERRY){
+                visible = false;
+            }
+
             Marker marker = map.addMarker(
                     new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(Constants.MARKERS[marker_type]))
                             .position(new LatLng(lat, lon))
+                            .visible(visible)
                             .snippet(marker_info.toString())
             );
-
+            if (marker_type == Constants.PUBLIC_TRANSPORT || marker_type == Constants.FERRY){
+                pt_markers.put(marker.getId(),marker);
+            }
             marker_info.put("id", marker.getId());
             marker.setSnippet(marker_info.toString());
         }
@@ -361,6 +409,7 @@ public class GMapsActivity extends Activity implements LocationListener {
                                 }
                                 infoIntent.putExtra("type", marker_info.getInt("type"));
                                 startActivity(infoIntent);
+
                             }
                             catch (JSONException ex){
                                 Log.e(LOG_TAG, ex.toString());
@@ -391,6 +440,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
+        top_menu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 
