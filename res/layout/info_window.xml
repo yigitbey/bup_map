@@ -31,6 +31,18 @@
             android:textAppearance="@style/info_title"
             android:visibility="visible" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shareButton"
+            android:src="@android:drawable/ic_menu_share"
+            android:onClick="onShareClick"
+            android:layout_gravity="right" />
+
     </LinearLayout>
 
     <ImageView

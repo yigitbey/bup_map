@@ -11,15 +11,19 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,6 +36,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.parse.ParseAnalytics;
 import com.parse.PushService;
 
@@ -45,6 +55,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class GMapsActivity extends Activity implements LocationListener {
@@ -86,6 +97,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         // Get a handle to the Map Fragment
         map = ((MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map)).getMap();
+
         Double lat = mostRecentLocation.getLatitude();
         Double lon = mostRecentLocation.getLongitude();
         LatLng currentLocation = new LatLng(lat, lon);
@@ -123,9 +135,62 @@ public class GMapsActivity extends Activity implements LocationListener {
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
         String provider = locationManager.getBestProvider(criteria,true);
 
-        locationManager.requestLocationUpdates(provider, 1, 0, this);
+        locationManager.requestLocationUpdates(provider, 5000, 5, this);
         mostRecentLocation = locationManager.getLastKnownLocation(provider);
      }
+
+    private void getDirections(Double lat, Double lon){
+        getLocation();
+        Double cur_lat = mostRecentLocation.getLatitude();
+        Double cur_lon = mostRecentLocation.getLongitude();
+
+        String url = String.format(Constants.Directions_API, cur_lat, cur_lon, lat, lon);
+        Log.i("DDD", url);
+        Ion.with(getApplicationContext(), url)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        try{
+                            Log.i("DDD_BB", "comp");
+                            createDirectionsFromJson(result);
+                        }
+                        catch (JSONException ex){
+                            Log.e(LOG_TAG, ex.toString());
+                        }
+
+                    }
+                });
+
+
+    }
+
+    public class Nearby_get extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String...type) {
+            return get_closest(type[0]);
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject point) {
+            try{
+                Double lat = point.getDouble("latitude");
+                Double lon = point.getDouble("longitude");
+                Double current_lat = mostRecentLocation.getLatitude();
+                Double current_lon = mostRecentLocation.getLongitude();
+
+                getDirections(lat, lon);
+
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 15));
+                //map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_lat,current_lon), 15));
+            }
+            catch (JSONException ex){
+                Log.e(LOG_TAG,ex.toString());
+            }
+
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -136,10 +201,67 @@ public class GMapsActivity extends Activity implements LocationListener {
             case R.id.toggle_pt:
                 toggle_pt_markers();
                 return true;
+            case R.id.nearby_repairshop:
+                new Nearby_get().execute("bisiklet_tamircileri");
+                return true;
+            case R.id.nearby_rent:
+                new Nearby_get().execute("kiralama");
+                return true;
+            case R.id.nearby_park:
+                new Nearby_get().execute("park");
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public JSONObject  get_closest(String type){
+        getLocation();
+        Double lon = mostRecentLocation.getLongitude();
+        Double lat = mostRecentLocation.getLatitude();
+
+        String lons = String.valueOf(lon);
+        String lats = String.valueOf(lat);
+
+        String json_url = String.format(Constants.nearby_query_misc,lons,lats,type);
+        if (type.equals("bisiklet_tamircileri")){
+            json_url = String.format(Constants.nearby_query,lons,lats,type);
+        }
+
+        HttpURLConnection conn = null;
+        final StringBuilder json = new StringBuilder();
+        try {
+            // Connect to the web service
+            URL url = new URL(json_url);
+            conn = (HttpURLConnection) url.openConnection();
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+
+            // Read the JSON data into the StringBuilder
+            int read;
+            char[] buff = new char[1024];
+            while ((read = in.read(buff)) != -1) {
+                json.append(buff, 0, read);
+            }
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error connecting to service", e);
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+        JSONObject point = new JSONObject();
+        try{
+            final JSONObject jsonobj = new JSONObject(json.toString());
+            JSONArray rows = jsonobj.getJSONArray("rows");
+            point = (JSONObject) rows.get(0);
+        }
+        catch (JSONException ex){
+            Log.e(LOG_TAG, ex.toString());
+        }
+        return point;
+
+    }
+
 
     public void toggle_pt_markers(){
         MenuItem toggler = top_menu.findItem(R.id.toggle_pt);
@@ -288,6 +410,43 @@ public class GMapsActivity extends Activity implements LocationListener {
         return marker_info;
     }
 
+    void createDirectionsFromJson(String json) throws JSONException{
+        Log.i("DDD_A", "create");
+        JSONObject jsonObject = new JSONObject(json);
+        JSONObject routes = jsonObject.getJSONArray("routes").getJSONObject(0);
+        JSONObject bounds = routes.getJSONObject("bounds");
+        JSONObject route = routes.getJSONArray("legs").getJSONObject(0);
+
+        int distance = route.getJSONObject("distance").getInt("value");
+        Double start_lat = route.getJSONObject("start_location").getDouble("lat");
+        Double start_lon = route.getJSONObject("start_location").getDouble("lng");
+        Double end_lat;
+        Double end_lon;
+
+        JSONArray steps = route.getJSONArray("steps");
+        PolylineOptions line = new PolylineOptions().width(20).color(Color.BLUE).geodesic(true);
+        line.add(new LatLng(start_lat,start_lon));
+
+        DirectionsJSONParser directionsJSONParser = new DirectionsJSONParser();
+
+        for (int i=0; i < steps.length(); i++){
+            JSONObject step = steps.getJSONObject(i);
+            end_lat = step.getJSONObject("end_location").getDouble("lat");
+            end_lon = step.getJSONObject("end_location").getDouble("lng");
+            String polyline = step.getJSONObject("polyline").getString("points");
+            List<LatLng> list = directionsJSONParser.decodePoly(polyline);
+
+            for (int k=0; k<list.size(); k++ ){
+                LatLng point =  list.get(k);
+                line.add(point);
+            }
+
+        }
+
+        Polyline polyline = map.addPolyline(line);
+
+    }
+    
     void createRoadsFromJson(String json) throws  JSONException{
         JSONObject jsonObject = new JSONObject(json);
         JSONArray jsonArray = jsonObject.getJSONArray("features");
@@ -463,6 +622,18 @@ public class GMapsActivity extends Activity implements LocationListener {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+    }
+
+    @Override
     public void onProviderDisabled(String provider) {
     }
 
@@ -474,5 +645,9 @@ public class GMapsActivity extends Activity implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
+
+}
+
+class Route{
 
 }

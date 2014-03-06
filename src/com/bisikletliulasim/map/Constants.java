@@ -24,6 +24,13 @@ public final class Constants{
     public static final String LEISURE_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27gezi%27)&format=GEOJson";
     public static final String IETT_ROADS_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20mevcut_bisiklet_yollari%20WHERE%20kategori%20%20IN%20(%27iett%27)&format=GEOJson";
 
+
+
+    public static final String nearby_query = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%%20ST_X(ST_Centroid(the_geom))%%20as%%20longitude,ST_Y(ST_Centroid(the_geom))%%20as%%20latitude,%%20ST_Distance(the_geom::geography,%%20ST_PointFromText(%%27POINT(%s%%20%s)%%27,%%204326)::geography)%%20AS%%20distance%%20FROM%%20%s%%20ORDER%%20BY%%20distance%%20ASC%%20LIMIT%%201";
+    public static final String nearby_query_misc = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%%20ST_X(ST_Centroid(the_geom))%%20as%%20longitude,ST_Y(ST_Centroid(the_geom))%%20as%%20latitude,%%20ST_Distance(the_geom::geography,%%20ST_PointFromText(%%27POINT(%s%%20%s)%%27,%%204326)::geography)%%20AS%%20distance%%20FROM%%20misc%%20WHERE%%20kategori%%20%%20IN%%20(%%27%s%%27)%%20ORDER%%20BY%%20distance%%20ASC%%20LIMIT%%201";
+
+    public static final String Directions_API = "https://maps.googleapis.com/maps/api/directions/json?origin=%s,%s&destination=%s,%s&sensor=true&key=AIzaSyB1d5eN43PKkoeeRT8-esCS3_qa47qKcy4";
+
     public static final int[] MARKER_TYPES = {
             REPAIRSHOP,
             BDI,

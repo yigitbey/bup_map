@@ -16,6 +16,10 @@
     <orderEntry type="module" module-name="google-play-services_lib" exported="" />
     <orderEntry type="library" name="Parse-1.4.1" level="project" />
     <orderEntry type="library" name="picasso-2.2.0" level="project" />
+    <orderEntry type="library" name="libGoogleAnalyticsServices" level="project" />
+    <orderEntry type="library" name="ion-1.2.4" level="project" />
+    <orderEntry type="library" name="androidasync-1.2.4" level="project" />
+    <orderEntry type="library" name="gson-2.2.4" level="project" />
   </component>
 </module>
 

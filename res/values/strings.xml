@@ -16,6 +16,10 @@
     <string name="street_drain">Tehlikeli Mazgal</string>
     <string name="ferry">Vapur Iskelesi</string>
     <string name="public_transport">Toplu Tasima</string>
+    <string name="nearby">En yakin</string>
+    <string name="repairshop_single">En yakin Tamirci</string>
+    <string name="park_single">En yakin Park yeri</string>
+    <string name="rent_single">En yakin Kiralama</string>
     <string name="about_map">
         Eksik gordugunuz bilgileri http://bit.ly/bup_harita adresinden bize yollayabilirsiniz.
     </string>

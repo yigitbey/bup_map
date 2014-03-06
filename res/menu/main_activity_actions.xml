@@ -1,6 +1,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/nearby"
+        android:icon="@drawable/nearby"
+        android:title="@string/nearby"
+        android:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/nearby_repairshop"
+                android:title="@string/repairshop_single"
+                android:icon="@drawable/repair"
+                />
+            <item
+                android:id="@+id/nearby_park"
+                android:title="@string/park_single"
+                android:icon="@drawable/park"
+                />
+            <item
+                android:id="@+id/nearby_rent"
+                android:title="@string/rent_single"
+                android:icon="@drawable/rent"
+                />
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/action_public_transport"
         android:icon="@drawable/busstop_action"
         android:title="@string/action_public_transport"
@@ -17,7 +41,7 @@
                 android:title="@string/show_pt_info"
                 android:icon="@android:drawable/ic_menu_info_details"
                 android:enabled="false"
-                  />
+                />
         </menu>
     </item>
 
