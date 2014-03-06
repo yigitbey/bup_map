@@ -9,37 +9,32 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.analytics.tracking.android.EasyTracker;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.parse.ParseAnalytics;
@@ -50,9 +45,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -67,16 +59,26 @@ public class GMapsActivity extends Activity implements LocationListener {
     HashMap bus_polylines = new HashMap();
     HashMap pt_markers = new HashMap();
     Menu top_menu;
+    Polyline directions_route = null;
+    Double active_marker_lat = null;
+    Double active_marker_lon = null;
+    LocationManager locationManager;
+
 
     @Override
     /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        int gms_enabled = GooglePlayServicesUtil.isGooglePlayServicesAvailable(BUPApplication.context);
+        if (gms_enabled != ConnectionResult.SUCCESS){
+            Log.e(LOG_TAG,"GMS not available");
+            return;
+        }
+
         setContentView(R.layout.gmaps);
+
         getLocation();
-        PushService.setDefaultPushCallback(this, GMapsActivity.class);
-        ParseAnalytics.trackAppOpened(getIntent());
 
         json_urls.put(Constants.REPAIRSHOP, Constants.REPAIRSHOP_JSON);
         json_urls.put(Constants.BDI, Constants.BDI_JSON);
@@ -91,12 +93,26 @@ public class GMapsActivity extends Activity implements LocationListener {
 
         setupMap();
 
+        Intent thisIntent = getIntent();
+        int action = thisIntent.getIntExtra("action",0);
+
+        if (action == 1){
+            active_marker_lat = thisIntent.getDoubleExtra("lat",0);
+            active_marker_lon = thisIntent.getDoubleExtra("lon",0);
+            String title = thisIntent.getStringExtra("title");
+            TextView title_label = (TextView) findViewById(R.id.title_label);
+            title_label.setText(title);
+            getDirections(active_marker_lat, active_marker_lon);
+        }
+
+        PushService.setDefaultPushCallback(this, GMapsActivity.class);
+        ParseAnalytics.trackAppOpened(getIntent());
+
+
     }
 
-    private void setupMap(){
-        // Get a handle to the Map Fragment
-        map = ((MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map)).getMap();
+    private void setupMap () throws NullPointerException{
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
         Double lat = mostRecentLocation.getLatitude();
         Double lon = mostRecentLocation.getLongitude();
@@ -112,7 +128,6 @@ public class GMapsActivity extends Activity implements LocationListener {
                     try {
                         Map.Entry pairs = (Map.Entry) it.next();
                         getJson(pairs.getValue().toString(), Integer.parseInt(pairs.getKey().toString()));
-
                     }
                     catch (IOException e) {
                         Log.e(LOG_TAG, "Cannot retrieve json", e);
@@ -129,40 +144,38 @@ public class GMapsActivity extends Activity implements LocationListener {
 
     }
 
-    private void getLocation() {
-        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        String provider = locationManager.getBestProvider(criteria,true);
+    public void getDirections(){
+        getDirections(active_marker_lat, active_marker_lon);
+    }
 
-        locationManager.requestLocationUpdates(provider, 5000, 5, this);
-        mostRecentLocation = locationManager.getLastKnownLocation(provider);
-     }
-
-    private void getDirections(Double lat, Double lon){
+    public void getDirections(Double lat, Double lon){
         getLocation();
+
+        if (directions_route != null){
+            directions_route.remove();
+        }
+
         Double cur_lat = mostRecentLocation.getLatitude();
         Double cur_lon = mostRecentLocation.getLongitude();
 
         String url = String.format(Constants.Directions_API, cur_lat, cur_lon, lat, lon);
-        Log.i("DDD", url);
-        Ion.with(getApplicationContext(), url)
+
+        Ion.with(BUPApplication.context, url)
                 .asString()
-                .setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        try{
-                            Log.i("DDD_BB", "comp");
-                            createDirectionsFromJson(result);
+                .setCallback(
+                        new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                try{
+                                    createDirectionsFromJson(result);
+                                }
+                                catch (JSONException ex){
+                                    Log.e(LOG_TAG, ex.toString());
+                                }
+
+                            }
                         }
-                        catch (JSONException ex){
-                            Log.e(LOG_TAG, ex.toString());
-                        }
-
-                    }
-                });
-
-
+                );
     }
 
     public class Nearby_get extends AsyncTask<String, Void, JSONObject> {
@@ -177,13 +190,13 @@ public class GMapsActivity extends Activity implements LocationListener {
             try{
                 Double lat = point.getDouble("latitude");
                 Double lon = point.getDouble("longitude");
-                Double current_lat = mostRecentLocation.getLatitude();
-                Double current_lon = mostRecentLocation.getLongitude();
-
-                getDirections(lat, lon);
+                String title = point.getString("title");
 
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 15));
-                //map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_lat,current_lon), 15));
+
+                TextView title_label = (TextView) findViewById(R.id.title_label);
+                title_label.setText(title);
+                getDirections(lat, lon);
             }
             catch (JSONException ex){
                 Log.e(LOG_TAG,ex.toString());
@@ -192,30 +205,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_info:
-                openInfo();
-                return true;
-            case R.id.toggle_pt:
-                toggle_pt_markers();
-                return true;
-            case R.id.nearby_repairshop:
-                new Nearby_get().execute("bisiklet_tamircileri");
-                return true;
-            case R.id.nearby_rent:
-                new Nearby_get().execute("kiralama");
-                return true;
-            case R.id.nearby_park:
-                new Nearby_get().execute("park");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public JSONObject  get_closest(String type){
+    public JSONObject get_closest(String type){
         getLocation();
         Double lon = mostRecentLocation.getLongitude();
         Double lat = mostRecentLocation.getLatitude();
@@ -228,31 +218,10 @@ public class GMapsActivity extends Activity implements LocationListener {
             json_url = String.format(Constants.nearby_query,lons,lats,type);
         }
 
-        HttpURLConnection conn = null;
-        final StringBuilder json = new StringBuilder();
-        try {
-            // Connect to the web service
-            URL url = new URL(json_url);
-            conn = (HttpURLConnection) url.openConnection();
-            InputStreamReader in = new InputStreamReader(conn.getInputStream());
-
-            // Read the JSON data into the StringBuilder
-            int read;
-            char[] buff = new char[1024];
-            while ((read = in.read(buff)) != -1) {
-                json.append(buff, 0, read);
-            }
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Error connecting to service", e);
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
         JSONObject point = new JSONObject();
         try{
-            final JSONObject jsonobj = new JSONObject(json.toString());
-            JSONArray rows = jsonobj.getJSONArray("rows");
+            final JSONObject jsonObj = Utils.LoadJsonFromURL(json_url);
+            JSONArray rows = jsonObj.getJSONArray("rows");
             point = (JSONObject) rows.get(0);
         }
         catch (JSONException ex){
@@ -261,7 +230,6 @@ public class GMapsActivity extends Activity implements LocationListener {
         return point;
 
     }
-
 
     public void toggle_pt_markers(){
         MenuItem toggler = top_menu.findItem(R.id.toggle_pt);
@@ -308,33 +276,9 @@ public class GMapsActivity extends Activity implements LocationListener {
     }
 
     protected void getJson(String json_url,final int type) throws IOException, JSONException {
-        HttpURLConnection conn = null;
-        final StringBuilder json = new StringBuilder();
-        try {
-            // Connect to the web service
-            URL url = new URL(json_url);
-            conn = (HttpURLConnection) url.openConnection();
-            InputStreamReader in = new InputStreamReader(conn.getInputStream());
-
-            // Read the JSON data into the StringBuilder
-            int read;
-            char[] buff = new char[1024];
-            while ((read = in.read(buff)) != -1) {
-                json.append(buff, 0, read);
-            }
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Error connecting to service", e);
-            throw new IOException("Error connecting to service", e);
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-        final JSONObject jsonobj = new JSONObject(json.toString());
+        final JSONObject jsonobj = Utils.LoadJsonFromURL(json_url);
         jsonobj.put("type", type);
 
-        // Create markers for the city data.
-        // Must run this on the UI thread since it's a UI operation.
         runOnUiThread(new Runnable() {
             public void run() {
                 try {
@@ -410,29 +354,27 @@ public class GMapsActivity extends Activity implements LocationListener {
         return marker_info;
     }
 
+
+
     void createDirectionsFromJson(String json) throws JSONException{
-        Log.i("DDD_A", "create");
         JSONObject jsonObject = new JSONObject(json);
         JSONObject routes = jsonObject.getJSONArray("routes").getJSONObject(0);
         JSONObject bounds = routes.getJSONObject("bounds");
         JSONObject route = routes.getJSONArray("legs").getJSONObject(0);
 
-        int distance = route.getJSONObject("distance").getInt("value");
+        Double distance = (double) route.getJSONObject("distance").getInt("value");
+
         Double start_lat = route.getJSONObject("start_location").getDouble("lat");
         Double start_lon = route.getJSONObject("start_location").getDouble("lng");
-        Double end_lat;
-        Double end_lon;
 
         JSONArray steps = route.getJSONArray("steps");
-        PolylineOptions line = new PolylineOptions().width(20).color(Color.BLUE).geodesic(true);
+        PolylineOptions line = new PolylineOptions().width(Utils.dpToPx(8)).color(Color.argb(150,0,0,255)).geodesic(true);
         line.add(new LatLng(start_lat,start_lon));
 
         DirectionsJSONParser directionsJSONParser = new DirectionsJSONParser();
 
         for (int i=0; i < steps.length(); i++){
             JSONObject step = steps.getJSONObject(i);
-            end_lat = step.getJSONObject("end_location").getDouble("lat");
-            end_lon = step.getJSONObject("end_location").getDouble("lng");
             String polyline = step.getJSONObject("polyline").getString("points");
             List<LatLng> list = directionsJSONParser.decodePoly(polyline);
 
@@ -442,8 +384,18 @@ public class GMapsActivity extends Activity implements LocationListener {
             }
 
         }
+        directions_route = map.addPolyline(line);
+        LatLng sw = new LatLng(bounds.getJSONObject("southwest").getDouble("lat"), bounds.getJSONObject("southwest").getDouble("lng"));
+        LatLng ne = new LatLng(bounds.getJSONObject("northeast").getDouble("lat"), bounds.getJSONObject("northeast").getDouble("lng"));
 
-        Polyline polyline = map.addPolyline(line);
+        LatLngBounds bound = new LatLngBounds(sw,ne);
+        map.animateCamera(CameraUpdateFactory.newLatLngBounds(bound, Utils.dpToPx(75)));
+
+        TextView distance_label = (TextView) findViewById(R.id.distance);
+        RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
+        distance_label.setText(distance/1000 + " km");
+        map.setPadding(0, Utils.dpToPx(50), 0, 0);
+        distance_layout.setVisibility(View.VISIBLE);
 
     }
     
@@ -529,6 +481,8 @@ public class GMapsActivity extends Activity implements LocationListener {
                 pt_markers.put(marker.getId(),marker);
             }
             marker_info.put("id", marker.getId());
+            marker_info.put("lat",lat);
+            marker_info.put("lon",lon);
             marker.setSnippet(marker_info.toString());
         }
     }
@@ -548,9 +502,13 @@ public class GMapsActivity extends Activity implements LocationListener {
 
             @Override
             public View getInfoContents(final Marker marker){
-                View v = new View(getApplicationContext());
+                View v = new View(BUPApplication.context);
+
                 try{
                     final JSONObject marker_info = new JSONObject(marker.getSnippet());
+
+                    active_marker_lat = marker_info.getDouble("lat");
+                    active_marker_lon = marker_info.getDouble("lon");
 
                     v = getLayoutInflater().inflate(R.layout.marker_bubble, null);
 
@@ -567,6 +525,8 @@ public class GMapsActivity extends Activity implements LocationListener {
                                     infoIntent.putExtra(key_name, marker_info.getString(key_name));
                                 }
                                 infoIntent.putExtra("type", marker_info.getInt("type"));
+                                infoIntent.putExtra("lat", active_marker_lat);
+                                infoIntent.putExtra("lon", active_marker_lon);
                                 startActivity(infoIntent);
 
                             }
@@ -587,12 +547,46 @@ public class GMapsActivity extends Activity implements LocationListener {
         return window;
     }
 
-    public boolean isDeviceConnectedToInternet() {
-        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        return isConnected;
+    public void closeRouteClick(View view){
+        RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
+        distance_layout.setVisibility(View.GONE);
+        directions_route.remove();
+        map.setPadding(0, 0, 0, 0);
     }
+
+    private void getLocation() {
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+        String provider = locationManager.getBestProvider(criteria,true);
+
+        locationManager.requestLocationUpdates(provider, 5000, 5, this);
+        mostRecentLocation = locationManager.getLastKnownLocation(provider);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_info:
+                openInfo();
+                return true;
+            case R.id.toggle_pt:
+                toggle_pt_markers();
+                return true;
+            case R.id.nearby_repairshop:
+                new Nearby_get().execute("bisiklet_tamircileri");
+                return true;
+            case R.id.nearby_rent:
+                new Nearby_get().execute("kiralama");
+                return true;
+            case R.id.nearby_park:
+                new Nearby_get().execute("park");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -604,21 +598,14 @@ public class GMapsActivity extends Activity implements LocationListener {
     }
 
 
-    /** Sets the mostRecentLocation object to the current location of the device **/
     @Override
     public void onLocationChanged(Location location) {
         mostRecentLocation = location;
-
-        Double lat = mostRecentLocation.getLatitude();
-        Double lon = mostRecentLocation.getLongitude();
-
-        final String newLocationJS = "javascript:changedLocation(" + lat + "," +  lon + ")";
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //setupMap();
     }
 
     @Override
@@ -645,9 +632,5 @@ public class GMapsActivity extends Activity implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
-
-}
-
-class Route{
 
 }

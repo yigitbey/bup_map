@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
           android:id="@+id/map"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:name="com.google.android.gms.maps.MapFragment"/>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#dd96c4ff"
+        android:visibility="gone"
+        android:id="@+id/distance_layout"
+        android:clickable="false">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="bold"
+            android:id="@+id/title_label"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Mesafe: "
+            android:id="@+id/distance_label"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/title_label" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/distance"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/distance_label" />
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/close_route"
+            android:onClick="closeRouteClick"
+            android:layout_gravity="right"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

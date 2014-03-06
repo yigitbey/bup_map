@@ -1,14 +1,10 @@
 package com.bisikletliulasim.map;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,16 +14,30 @@ import java.util.HashMap;
 
 public class InfoWindowActivity extends Activity {
     private static final String LOG_TAG = "BUPHarita_info";
+    Double lat = null;
+    Double lon = null;
+    String title = null;
+    String address = null;
 
     public void onShareClick(View view){
-        String title = (String) ((TextView) findViewById(R.id.title)).getText();
-
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        String share_msg = "Bisikletli Ulasim Haritasinda: " + title + " http://bisikletliulasim.com/android";
+        if (address == null){
+            address = "";
+        }
+        String share_msg = title + " " + address + " http://bisikletliulasim.com/android";
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, share_msg);
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
+
+    public void onGetDirectionsClick(View view){
+        Intent intent = new Intent(this, GMapsActivity.class);
+        intent.putExtra("action",1);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lon", lon);
+        intent.putExtra("title", title);
+        startActivity(intent);
     }
 
 
@@ -49,6 +59,11 @@ public class InfoWindowActivity extends Activity {
         TextView mobile_view = (TextView) findViewById(R.id.mobile);
         ImageView topImage = (ImageView) findViewById(R.id.topImage);
         ImageView info_icon = (ImageView) findViewById(R.id.info_icon);
+        lat = thisIntent.getDoubleExtra("lat",0);
+        lon = thisIntent.getDoubleExtra("lon",0);
+        title = thisIntent.getStringExtra("title");
+        address = thisIntent.getStringExtra("address");
+
 
         switch (type){
             case Constants.REPAIRSHOP:

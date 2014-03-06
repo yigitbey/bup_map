@@ -8,7 +8,7 @@
     android:padding="10dp"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,21 +19,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/info_icon"
             android:layout_gravity="left"
-            android:src="@drawable/repair_mono" />
+            android:src="@drawable/repair_mono"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="dsadasda"
             android:id="@+id/title"
-            android:layout_margin="5dp"
             android:layout_gravity="left"
             android:textAppearance="@style/info_title"
-            android:visibility="visible" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"/>
+            android:visibility="visible"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/info_icon" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -41,9 +40,20 @@
             android:id="@+id/shareButton"
             android:src="@android:drawable/ic_menu_share"
             android:onClick="onShareClick"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:layout_alignTop="@+id/getDirectionsImageButton"
+            android:layout_toLeftOf="@+id/getDirectionsImageButton" />
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/getDirectionsImageButton"
+            android:src="@android:drawable/ic_menu_directions"
+            android:onClick="onGetDirectionsClick"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
 
     <ImageView
         android:layout_width="360dp"
