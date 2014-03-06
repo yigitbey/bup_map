@@ -4,4 +4,15 @@
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <style name="Theme.BUPTheme" parent="android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">#64CCCCCC</item>
+    </style>
+
+   
 </resources>

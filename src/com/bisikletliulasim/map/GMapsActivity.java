@@ -1,5 +1,6 @@
 package com.bisikletliulasim.map;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -118,6 +120,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         Double lon = mostRecentLocation.getLongitude();
         LatLng currentLocation = new LatLng(lat, lon);
 
+        map.setPadding(0, Utils.dpToPx(50), 0, 0);
         map.setMyLocationEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
 
@@ -298,57 +301,46 @@ public class GMapsActivity extends Activity implements LocationListener {
 
     JSONObject generateMarkerInfo(int type, JSONObject properties) throws JSONException{
         JSONObject marker_info = new JSONObject();
+        marker_info.put("title", properties.getString("name"));
+        marker_info.put("type", type);
+
         if (type == Constants.REPAIRSHOP){
-            String title = properties.getString("name");
             String address = properties.getString("adres");
             address = address.replaceAll("\\s+", " ");
             String web = properties.getString("web");
             String mobile = properties.getString("telefon");
 
-            marker_info.put("title", title);
             marker_info.put("address", address);
             marker_info.put("web", web);
             marker_info.put("mobile", mobile);
-            marker_info.put("type", type);
         }
         else if (type == Constants.BDI){
-            String title = properties.getString("name");
             String address = properties.getString("adres");
             address = address.replaceAll("\\s+", " ");
             String web = properties.getString("web");
             String mobile = properties.getString("telefon");
             String advantage = properties.getString("kampanya");
 
-            marker_info.put("title", title);
             marker_info.put("address", address);
             marker_info.put("web", web);
             marker_info.put("mobile", mobile);
-            marker_info.put("type", type);
             marker_info.put("campaign", advantage);
         }
         else if (type == Constants.DRAIN ){
-            String title = properties.getString("name");
             String topImage = properties.getString("resim");
             String description = properties.getString("description");
             description = description.trim().replaceAll(" +", " ");
 
-
-            marker_info.put("title", title);
             marker_info.put("description", description);
             marker_info.put("image", topImage);
             marker_info.put("updated", false);
-            marker_info.put("type", type);
         }
 
         else if (type == Constants.RENT || type == Constants.PARK || type == Constants.FERRY || type == Constants.PUBLIC_TRANSPORT){
-            String title = properties.getString("name");
             String description = properties.getString("description");
             description = description.trim().replaceAll(" +", " ");
 
-            marker_info.put("title", title);
             marker_info.put("description", description);
-            marker_info.put("type", type);
-
         }
 
         return marker_info;
@@ -394,7 +386,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         TextView distance_label = (TextView) findViewById(R.id.distance);
         RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
         distance_label.setText(distance/1000 + " km");
-        map.setPadding(0, Utils.dpToPx(50), 0, 0);
+        map.setPadding(0, Utils.dpToPx(100), 0, 0);
         distance_layout.setVisibility(View.VISIBLE);
 
     }
@@ -551,7 +543,7 @@ public class GMapsActivity extends Activity implements LocationListener {
         RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
         distance_layout.setVisibility(View.GONE);
         directions_route.remove();
-        map.setPadding(0, 0, 0, 0);
+        map.setPadding(0, Utils.dpToPx(50), 0, 0);
     }
 
     private void getLocation() {
@@ -617,7 +609,7 @@ public class GMapsActivity extends Activity implements LocationListener {
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+        EasyTracker.getInstance(this).activityStop(this);
     }
 
     @Override
