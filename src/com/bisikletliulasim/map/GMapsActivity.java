@@ -65,6 +65,7 @@ public class GMapsActivity extends Activity implements LocationListener {
     Double active_marker_lat = null;
     Double active_marker_lon = null;
     LocationManager locationManager;
+    LocationListener locationListener;
 
 
     @Override
@@ -114,10 +115,20 @@ public class GMapsActivity extends Activity implements LocationListener {
     }
 
     private void setupMap () throws NullPointerException{
+        Double lat;
+        Double lon;
+
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
-        Double lat = mostRecentLocation.getLatitude();
-        Double lon = mostRecentLocation.getLongitude();
+        if (mostRecentLocation == null){
+            lat = 41.01079;
+            lon = 29.00877;
+        }
+        else{
+            lat = mostRecentLocation.getLatitude();
+            lon = mostRecentLocation.getLongitude();
+        }
+
         LatLng currentLocation = new LatLng(lat, lon);
 
         map.setPadding(0, Utils.dpToPx(50), 0, 0);
@@ -547,13 +558,18 @@ public class GMapsActivity extends Activity implements LocationListener {
     }
 
     private void getLocation() {
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
         String provider = locationManager.getBestProvider(criteria,true);
+        if (locationManager != null){
+            locationManager.requestLocationUpdates(provider, 5000, 5, this);
+            mostRecentLocation = locationManager.getLastKnownLocation(provider);
+        }
+        else{
+            mostRecentLocation = null;
+        }
 
-        locationManager.requestLocationUpdates(provider, 5000, 5, this);
-        mostRecentLocation = locationManager.getLastKnownLocation(provider);
     }
 
     @Override
@@ -598,6 +614,13 @@ public class GMapsActivity extends Activity implements LocationListener {
     @Override
     public void onResume() {
         super.onResume();
+        getLocation();
+    }
+
+    @Override
+    public void onPause() {
+        super.onResume();
+        locationManager.removeUpdates(this);
     }
 
     @Override

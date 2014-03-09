@@ -59,11 +59,16 @@ public class InfoWindowActivity extends Activity {
         TextView mobile_view = (TextView) findViewById(R.id.mobile);
         ImageView topImage = (ImageView) findViewById(R.id.topImage);
         ImageView info_icon = (ImageView) findViewById(R.id.info_icon);
+        ImageView share_button = (ImageView) findViewById(R.id.shareButton);
         lat = thisIntent.getDoubleExtra("lat",0);
         lon = thisIntent.getDoubleExtra("lon",0);
         title = thisIntent.getStringExtra("title");
         address = thisIntent.getStringExtra("address");
 
+        int imageWidth = Utils.dpToPx(Constants.INFO_IMAGE_DP_WIDTH);
+        int imageHeight = Utils.dpToPx(Constants.INFO_IMAGE_DP_HEIGHT);
+
+        title_view.setText(thisIntent.getStringExtra("title"));
 
         switch (type){
             case Constants.REPAIRSHOP:
@@ -73,7 +78,6 @@ public class InfoWindowActivity extends Activity {
                 for (String key: Constants.REPAIRSHOP_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
-                title_view.setText(marker_info.get("title"));
                 address_view.setText(marker_info.get("address"));
                 web_view.setText(marker_info.get("web"));
                 mobile_view.setText(marker_info.get("mobile"));
@@ -94,7 +98,7 @@ public class InfoWindowActivity extends Activity {
                 for (String key: Constants.BDI_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
-                title_view.setText(marker_info.get("title"));
+
                 address_view.setText(marker_info.get("address"));
                 campaign_view.setText(marker_info.get("campaign"));
                 web_view.setText(marker_info.get("web"));
@@ -113,15 +117,19 @@ public class InfoWindowActivity extends Activity {
 
             case Constants.RENT:
                 info_icon.setImageResource(R.drawable.rent);
-                title_view.setText(marker_info.get("title"));
+
                 description_view.setText(marker_info.get("description"));
-                String rent_image_url= marker_info.get("image");
+                String rent_image_url = marker_info.get("image");
 
                 for (String key: Constants.RENT_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
-                Picasso.with(getApplicationContext()).load(rent_image_url).into(topImage);
-
+                Picasso.with(getApplicationContext())
+                        .load(rent_image_url)
+                        .placeholder(R.drawable.no_image)
+                        .resize(imageWidth, imageHeight)
+                        .centerCrop()
+                        .into(topImage);
 
                 TextView[] rent_views = {description_view};
                 for (TextView view: rent_views){
@@ -131,6 +139,7 @@ public class InfoWindowActivity extends Activity {
                     }
                 }
                 topImage.setVisibility(View.VISIBLE);
+                share_button.setVisibility(View.INVISIBLE);
                 break;
 
             case Constants.DRAIN:
@@ -139,14 +148,14 @@ public class InfoWindowActivity extends Activity {
                 for (String key: Constants.DRAIN_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
-                title_view.setText(marker_info.get("title"));
+
                 description_view.setText(marker_info.get("description"));
                 String drain_image_url = marker_info.get("image");
 
                 Picasso.with(getApplicationContext())
                         .load(drain_image_url)
                         .placeholder(R.drawable.drain_noimage)
-                        .resize(960,600)
+                        .resize(imageWidth, imageHeight)
                         .centerCrop()
                         .into(topImage);
 
@@ -158,21 +167,22 @@ public class InfoWindowActivity extends Activity {
                     }
                 }
                 topImage.setVisibility(View.VISIBLE);
+                share_button.setVisibility(View.INVISIBLE);
                 break;
 
             case Constants.PARK:
                 info_icon.setImageResource(R.drawable.park);
-                for (String key: Constants.DRAIN_INFO){
+                for (String key: Constants.PARK_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
-                title_view.setText(marker_info.get("title"));
+
                 description_view.setText(marker_info.get("description"));
                 String park_image_url = marker_info.get("image");
 
                 Picasso.with(getApplicationContext())
                         .load(park_image_url)
                         .placeholder(R.drawable.no_image)
-                        .resize(960,600)
+                        .resize(imageWidth, imageHeight)
                         .centerCrop()
                         .into(topImage);
 
@@ -184,6 +194,7 @@ public class InfoWindowActivity extends Activity {
                     }
                 }
                 topImage.setVisibility(View.VISIBLE);
+                share_button.setVisibility(View.INVISIBLE);
                 break;
 
             case Constants.FERRY:
@@ -191,7 +202,7 @@ public class InfoWindowActivity extends Activity {
                 for (String key: Constants.FERRY_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
-                title_view.setText(marker_info.get("title"));
+
                 description_view.setText(marker_info.get("description"));
 
                 TextView[] ferry_views = {title_view,description_view};
@@ -201,6 +212,7 @@ public class InfoWindowActivity extends Activity {
                         view.setVisibility(View.VISIBLE);
                     }
                 }
+                share_button.setVisibility(View.INVISIBLE);
                 break;
 
             case Constants.PUBLIC_TRANSPORT:
@@ -208,7 +220,7 @@ public class InfoWindowActivity extends Activity {
                 for (String key: Constants.PUBLIC_TRANSPORT_INFO){
                     marker_info.put(key, thisIntent.getStringExtra(key));
                 }
-                title_view.setText(marker_info.get("title"));
+
                 description_view.setText(marker_info.get("description"));
 
                 TextView[] public_transport_views = {title_view,description_view};
@@ -218,6 +230,7 @@ public class InfoWindowActivity extends Activity {
                         view.setVisibility(View.VISIBLE);
                     }
                 }
+                share_button.setVisibility(View.INVISIBLE);
                 break;
 
         }

@@ -15,6 +15,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="?android:attr/actionBarSize"
         android:background="#dd96c4ff"
         android:visibility="gone"
         android:id="@+id/distance_layout"

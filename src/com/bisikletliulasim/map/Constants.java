@@ -1,6 +1,9 @@
 package com.bisikletliulasim.map;
 
 public final class Constants{
+
+    public static final int INFO_IMAGE_DP_HEIGHT = 200;
+    public static final int INFO_IMAGE_DP_WIDTH = 360;
     public static final int REPAIRSHOP = 0;
     public static final int BDI = 1;
     public static final int RENT = 2;
