@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/gson-2.2.4-42495a80492b36d5c29d26a33c7a904ec499bbac.jar"
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
+    <item
+        dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-e72d7108cf88b90bf3ac550a7eea4923174bb27d.jar"
+        jar="/Library/android-sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+    <item
+        dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/ion-1.2.4-45490548b184d6a69e3fb09b5ac190da2affaf15.jar"
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.ion/ion/1.2.4/776baf5cac8eb4145dc0901254122cf956a784e3/ion-1.2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="776baf5cac8eb4145dc0901254122cf956a784e3"/>
+    <item
+        dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-84dc85d83cfcfa23acb8f704bec7d743d02ddc9c.jar"
+        jar="/Users/yigit/AndroidStudioProjects/Mahler/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
+    <item
+        dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/androidasync-1.2.4-ba5ca0b387a50f538d7c8d9baaee0218fb03b759.jar"
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.async/androidasync/1.2.4/8dc7111050ee5f13a54b1206d47fee856159b2aa/androidasync-1.2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8dc7111050ee5f13a54b1206d47fee856159b2aa"/>
+
+</pre-dex-items>
