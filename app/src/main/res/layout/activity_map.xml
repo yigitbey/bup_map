@@ -1,7 +1,94 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/map"
-    tools:context=".map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"/>
+    android:gravity="bottom"
+    sothree:panelHeight="0dp"
+    sothree:overlay="true"
+    sothree:anchorPoint="0.6"
+    sothree:shadowHeight="8dp">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:id="@+id/point_name"
+        android:visibility="visible"
+        android:background="@drawable/gradient_transparent"
+        android:gravity="top|center_horizontal"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:showDividers="middle"
+        android:divider="@android:drawable/divider_horizontal_dark">
+
+        <LinearLayout
+            android:id="@+id/panel_title"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:minHeight="100dp"
+            android:showDividers="middle"
+            android:divider="@android:drawable/divider_horizontal_dark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/captionView"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="80"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:textColor="#ff000000"
+                android:textSize="20dp"
+                android:textIsSelectable="false" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/captionButtonView"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="20"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:minHeight="300dp"
+
+            android:id="@+id/panel_details"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/imageView"
+                android:src="@android:drawable/ic_delete" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

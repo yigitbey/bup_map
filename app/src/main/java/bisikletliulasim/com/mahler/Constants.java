@@ -7,6 +7,8 @@ import java.util.Map;
  */
 public class Constants {
 
+    public static final int SLIDING_PANEL_HEIGHT = 100; //dp
+
     public static final String LOG_TAG = "BUP_HARITA";
 
     public static final int INFO_IMAGE_DP_HEIGHT = 200;
