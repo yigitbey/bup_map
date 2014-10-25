@@ -41,6 +41,7 @@
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
+
             android:minHeight="100dp"
             android:showDividers="middle"
             android:divider="@android:drawable/divider_horizontal_dark">
@@ -48,7 +49,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
                 android:id="@+id/captionView"
                 android:layout_gravity="center_vertical"
@@ -56,7 +56,8 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:textColor="#ff000000"
-                android:textSize="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="@dimen/abc_text_size_medium_material"
                 android:textIsSelectable="false" />
 
             <ImageView
@@ -73,19 +74,116 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:minHeight="300dp"
-
+            android:minHeight="200dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:layout_margin="10dp"
             android:id="@+id/panel_details"
             android:layout_height="wrap_content">
 
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/imageView"
-                android:src="@android:drawable/ic_delete" />
+
+            <android.support.v7.widget.CardView
+                android:layout_marginBottom="20dp"
+                android:layout_width="fill_parent"
+                android:id="@+id/markerPromotionCard"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="20dp"
+                    android:text="Promotion"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="#ff333333"
+                    android:id="@+id/markerPromotion"
+                    />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_marginBottom="20dp"
+                android:layout_width="fill_parent"
+                android:id="@+id/markerDescriptionCard"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:minHeight="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="#ff333333"
+                    android:id="@+id/markerDescription"
+                />
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_marginBottom="20dp"
+                android:layout_width="fill_parent"
+                android:id="@+id/markerAddressCard"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="20dp"
+                    android:text="Address"
+                    android:textColor="#ff333333"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:id="@+id/markerAddress"
+                />
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_marginBottom="20dp"
+                android:layout_width="fill_parent"
+                android:id="@+id/markerWebCard"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_margin="20dp"
+                    android:textColor="#ff333333"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:id="@+id/markerWeb"
+                    android:text="Web"
+                />
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_marginBottom="20dp"
+                android:layout_width="fill_parent"
+                android:id="@+id/markerTelephoneCard"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_margin="20dp"
+                    android:text="Telephone"
+                    android:textColor="#ff333333"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:id="@+id/markerTelephone"
+                />
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/markerImageCard"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:layout_margin="20dp"
+                    android:id="@+id/markerImage"
+                    android:src="@drawable/bdi_noimage" />
+
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
     </LinearLayout>
