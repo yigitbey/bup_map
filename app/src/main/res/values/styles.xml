@@ -1,0 +1,16 @@
+<resources>
+
+
+    <style name="Theme.BUPTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <!--<item name="android:actionBarStyle">@style/ActionBar</item>-->
+        <!--<item name="android:windowActionBarOverlay">true</item>-->
+        <item name="android:colorPrimaryDark">#5489c8</item>
+        <item name="android:colorPrimary">#5489c8</item>
+        <item name="android:textColorPrimary">#ffffff</item>
+
+    </style>
+
+    <!--< style name="ActionBar" parent="@style/Theme.AppCompat.Light">
+         <item name="android:background">#faffffff</item>
+    </style>-->
+</resources>
