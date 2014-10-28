@@ -50,6 +50,7 @@ public class map extends FragmentActivity implements
     Location mostRecentLocation;
     TextView markerInfo;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +101,9 @@ public class map extends FragmentActivity implements
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+
                 sliding_layout.hidePanel();
+                //viewInfo = false;
             }
         });
 
@@ -204,14 +207,14 @@ public class map extends FragmentActivity implements
                     card.setVisibility(View.GONE);
                 }
 
-
-
+                Boolean viewInfo = false;
                 TextView labeltext = (TextView) findViewById(R.id.labelWeb);
                 markerInfo = (TextView) findViewById(R.id.markerWeb);
                 if (properties.get("web") != null && properties.get("web").isJsonPrimitive()){
                     markerInfo.setText(properties.get("web").getAsString());
                     markerInfo.setVisibility(View.VISIBLE);
                     labeltext.setVisibility(View.VISIBLE);
+                    viewInfo = true;
                 }else{
                     labeltext.setVisibility(View.GONE);
                     markerInfo.setVisibility(View.GONE);
@@ -223,10 +226,20 @@ public class map extends FragmentActivity implements
                     markerInfo.setText(properties.get("telefon").getAsString());
                     markerInfo.setVisibility(View.VISIBLE);
                     labeltext.setVisibility(View.VISIBLE);
+                    viewInfo = true;
                 }else{
                     labeltext.setVisibility(View.GONE);
                     markerInfo.setVisibility(View.GONE);
                 }
+
+                card = (CardView) findViewById(R.id.markerInfoCard);
+                if (viewInfo){
+
+                    card.setVisibility(View.VISIBLE);
+                } else {
+                    card.setVisibility(View.GONE);
+                }
+
                 card = (CardView) findViewById(R.id.markerImageCard);
                 if (properties.get("resim") != null && properties.get("resim").isJsonPrimitive()) {
                     ImageView markerImage = (ImageView) findViewById(R.id.markerImage);

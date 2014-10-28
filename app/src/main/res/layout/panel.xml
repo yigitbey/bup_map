@@ -41,16 +41,17 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:textIsSelectable="false" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/captionButtonView"
         android:layout_gravity="center_vertical"
         android:layout_weight="20"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:src="@android:drawable/ic_menu_info_details"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/information"
+        android:tint="@color/accent_material_dark" />
 </LinearLayout>
 
 <LinearLayout
@@ -67,7 +68,9 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:layout_width="fill_parent"
         android:minHeight="60dp"
         android:id="@+id/markerPromotionCard"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:touchscreenBlocksFocus="true">
         <include
             layout="@layout/marker_sub_info"
             android:id="@+id/promotion"/>
@@ -78,7 +81,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:layout_width="fill_parent"
         android:minHeight="60dp"
         android:id="@+id/markerAddressCard"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
         <include
             layout="@layout/marker_sub_info"
             android:id="@+id/address"/>
@@ -89,7 +93,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:layout_width="fill_parent"
         android:minHeight="60dp"
         android:id="@+id/markerDescriptionCard"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
         <include
             layout="@layout/marker_sub_info"
             android:id="@+id/description"/>
@@ -100,7 +105,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:elevation="2dp"
         android:layout_width="fill_parent"
         android:id="@+id/markerInfoCard"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <GridLayout
             android:layout_width="fill_parent"
@@ -110,7 +116,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
             android:columnOrderPreserved="true"
             android:rowOrderPreserved="false">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:text="Web"
@@ -125,8 +131,10 @@ android:divider="@android:drawable/divider_horizontal_dark">
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:id="@+id/markerWeb"
                 android:gravity="end"
+                android:layout_gravity="end"
                 android:text="Web"
-                />
+                android:layout_marginRight="100dp"
+                android:linksClickable="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,7 +152,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
                 android:textColor="#ff333333"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:id="@+id/markerTelephone"
-                />
+                android:layout_marginRight="100dp"
+                android:phoneNumber="true" />
 
 
         </GridLayout>
