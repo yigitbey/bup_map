@@ -161,7 +161,7 @@ public class map extends FragmentActivity implements
                     if (!properties.get("description").getAsString().equalsIgnoreCase("")) {
                         View infobox = findViewById(R.id.description);
                         ImageView image = (ImageView) infobox.findViewById(R.id.label);
-                        image.setImageResource(android.R.drawable.ic_menu_info_details);
+                        image.setImageResource(R.drawable.information);
                         TextView label = (TextView) infobox.findViewById(R.id.info);
                         label.setText(properties.get("description").getAsString());
                         label.invalidate();
@@ -177,7 +177,7 @@ public class map extends FragmentActivity implements
                         ){
                     View infobox =  findViewById(R.id.address);
                     ImageView image = (ImageView) infobox.findViewById(R.id.label);
-                    image.setImageResource(android.R.drawable.ic_dialog_map);
+                    image.setImageResource(R.drawable.mapmarker);
                     TextView label = (TextView) infobox.findViewById(R.id.info);
                     label.setText(properties.get("adres").getAsString());
                     label.invalidate();
@@ -193,7 +193,7 @@ public class map extends FragmentActivity implements
                     View infobox =  findViewById(R.id.promotion);
                     ImageView image = (ImageView) infobox.findViewById(R.id.label);
 
-                    image.setImageResource(android.R.drawable.star_big_on);
+                    image.setImageResource(R.drawable.ticket);
                     TextView label = (TextView) infobox.findViewById(R.id.info);
                     Log.i("BUP", "" + label.getText());
                     label.setText(properties.get("kampanya").getAsString());
