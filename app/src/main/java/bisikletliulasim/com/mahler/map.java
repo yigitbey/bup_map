@@ -1,6 +1,8 @@
 package bisikletliulasim.com.mahler;
 
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,6 +13,8 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -148,6 +153,14 @@ public class map extends FragmentActivity implements
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+
+                Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scaleup);
+                marker.setVisible(false);
+                BitmapDescriptor marker_animated = BitmapDescriptorFactory.fromResource(R.drawable.repair);
+
+
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.anim.scaleup));
+
                 JsonParser parser = new JsonParser();
                 final JsonObject properties = (JsonObject) parser.parse(marker.getSnippet());
 
