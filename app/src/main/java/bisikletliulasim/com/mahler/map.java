@@ -2,6 +2,7 @@ package bisikletliulasim.com.mahler;
 
 import android.content.IntentSender;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -29,8 +31,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -38,6 +43,12 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 
 public class map extends FragmentActivity implements
@@ -52,6 +63,7 @@ public class map extends FragmentActivity implements
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     public LocationClient mLocationClient = null;
     public LocationManager mLocationManager = null;
+    Polyline directions_route = null;
     Location mostRecentLocation;
     TextView markerInfo;
 
@@ -98,6 +110,8 @@ public class map extends FragmentActivity implements
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
 
         }
+
+        mMap.getUiSettings().setZoomControlsEnabled(false);
 
         for (int i=0; i < Constants.MARKER_TYPES.length; i++) {
             getJson(Constants.TYPE_URLS[i], Constants.MARKER_TYPES[i]);
@@ -153,16 +167,10 @@ public class map extends FragmentActivity implements
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-
-                Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scaleup);
-                marker.setVisible(false);
-                BitmapDescriptor marker_animated = BitmapDescriptorFactory.fromResource(R.drawable.repair);
-
-
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.anim.scaleup));
-
                 JsonParser parser = new JsonParser();
                 final JsonObject properties = (JsonObject) parser.parse(marker.getSnippet());
+
+                getDirections(marker.getPosition().latitude, marker.getPosition().longitude, false);
 
                 int px = (int) Utils.dpToPx(Constants.SLIDING_PANEL_HEIGHT, getApplicationContext());
                 sliding_layout.setMinimumHeight(px);
@@ -279,6 +287,84 @@ public class map extends FragmentActivity implements
                         .visible(visible)
                         .snippet(properties.toString())
         );
+
+    }
+
+    public void getDirections(Double lat, Double lon, final Boolean show_route){
+        getLocation();
+
+        if (directions_route != null){
+            directions_route.remove();
+        }
+
+        Double cur_lat = mostRecentLocation.getLatitude();
+        Double cur_lon = mostRecentLocation.getLongitude();
+
+        String url = String.format(Constants.Directions_API, cur_lat, cur_lon, lat, lon);
+
+        Ion.with(getApplicationContext())
+                .load(url)
+                .asString()
+                .setCallback(
+                        new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                try{
+                                    createDirectionsFromJson(result, show_route);
+                                    Log.e(LOG_TAG, "log");
+                                }
+                                catch (JSONException ex){
+                                    Log.e(LOG_TAG, ex.toString());
+                                }
+
+                            }
+                        }
+                );
+    }
+
+
+    void createDirectionsFromJson(String json, Boolean show_route) throws JSONException {
+
+        Log.e(LOG_TAG, json);
+        JSONObject jsonObject = new JSONObject(json);
+        JSONObject routes = jsonObject.getJSONArray("routes").getJSONObject(0);
+        JSONObject bounds = routes.getJSONObject("bounds");
+        JSONObject route = routes.getJSONArray("legs").getJSONObject(0);
+
+        Double distance = (double) route.getJSONObject("distance").getInt("value");
+        if (show_route) {
+            Double start_lat = route.getJSONObject("start_location").getDouble("lat");
+            Double start_lon = route.getJSONObject("start_location").getDouble("lng");
+
+            JSONArray steps = route.getJSONArray("steps");
+            PolylineOptions line = new PolylineOptions().width(Utils.dpToPx(8, getApplicationContext())).color(Color.argb(150, 0, 0, 255)).geodesic(true);
+            line.add(new LatLng(start_lat, start_lon));
+
+            DirectionsJSONParser directionsJSONParser = new DirectionsJSONParser();
+
+            for (int i = 0; i < steps.length(); i++) {
+                JSONObject step = steps.getJSONObject(i);
+                String polyline = step.getJSONObject("polyline").getString("points");
+                List<LatLng> list = directionsJSONParser.decodePoly(polyline);
+
+                for (int k = 0; k < list.size(); k++) {
+                    LatLng point = list.get(k);
+                    line.add(point);
+                }
+
+            }
+            directions_route = mMap.addPolyline(line);
+            LatLng sw = new LatLng(bounds.getJSONObject("southwest").getDouble("lat"), bounds.getJSONObject("southwest").getDouble("lng"));
+            LatLng ne = new LatLng(bounds.getJSONObject("northeast").getDouble("lat"), bounds.getJSONObject("northeast").getDouble("lng"));
+
+            LatLngBounds bound = new LatLngBounds(sw, ne);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bound, (int) Utils.dpToPx(75, getApplicationContext())));
+        }
+        TextView distance_label = (TextView) findViewById(R.id.distanceView);
+        //RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
+        distance_label.setText(distance/1000 + " km");
+        //map.setPadding(0, Utils.dpToPx(100), 0, 0);
+        distance_label.setVisibility(View.VISIBLE);
 
     }
 

@@ -26,19 +26,37 @@ android:divider="@android:drawable/divider_horizontal_dark">
     android:showDividers="middle"
     android:divider="@android:drawable/divider_horizontal_dark">
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:id="@+id/captionView"
         android:layout_gravity="center_vertical"
         android:layout_weight="80"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:textColor="#ff000000"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textSize="@dimen/abc_text_size_medium_material"
-        android:textIsSelectable="false" />
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:id="@+id/captionView"
+
+            android:textColor="#ff000000"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="@dimen/abc_text_size_medium_material"
+            android:textIsSelectable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/distanceView"
+            android:visibility="invisible"
+             />
+    </LinearLayout>
+
 
     <ImageView
         android:layout_width="40dp"
@@ -52,6 +70,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:background="@android:color/transparent"
         android:src="@drawable/information"
         android:tint="@color/accent_material_dark" />
+
+
 </LinearLayout>
 
 <LinearLayout
@@ -106,7 +126,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:layout_width="fill_parent"
         android:id="@+id/markerInfoCard"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:clickable="true">
 
         <GridLayout
             android:layout_width="fill_parent"
@@ -133,6 +154,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
                 android:gravity="end"
                 android:layout_gravity="end"
                 android:text="Web"
+                android:autoLink="web"
                 android:layout_marginRight="100dp"
                 android:linksClickable="true" />
             <TextView
@@ -141,6 +163,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:text="Telephone"
                 android:fontFamily="sans-serif-thin"
+                android:linksClickable="true"
+                android:autoLink="phone"
                 android:textColor="#ff000000"
                 android:gravity="center_vertical"
                 android:id="@+id/labelTelephone" />
