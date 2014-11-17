@@ -2,6 +2,7 @@ package bisikletliulasim.com.mahler;
 
 import android.content.IntentSender;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -279,10 +280,14 @@ public class map extends FragmentActivity implements
                 return true;
             }
         });
+        int width = (int) Utils.dpToPx((float) 28.78, getApplicationContext());
+        int height = (int) Utils.dpToPx(35, getApplicationContext());
 
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), Constants.MARKERS[marker_type]);
+        Bitmap b = Bitmap.createScaledBitmap(bm, width , height, false);
         mMap.addMarker(
                 new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromResource(Constants.MARKERS[marker_type]))
+                        .icon(BitmapDescriptorFactory.fromBitmap(b))
                         .position(new LatLng(lat, lon))
                         .visible(visible)
                         .snippet(properties.toString())
@@ -311,7 +316,7 @@ public class map extends FragmentActivity implements
                             public void onCompleted(Exception e, String result) {
                                 try{
                                     createDirectionsFromJson(result, show_route);
-                                    Log.e(LOG_TAG, "log");
+
                                 }
                                 catch (JSONException ex){
                                     Log.e(LOG_TAG, ex.toString());
@@ -324,8 +329,6 @@ public class map extends FragmentActivity implements
 
 
     void createDirectionsFromJson(String json, Boolean show_route) throws JSONException {
-
-        Log.e(LOG_TAG, json);
         JSONObject jsonObject = new JSONObject(json);
         JSONObject routes = jsonObject.getJSONArray("routes").getJSONObject(0);
         JSONObject bounds = routes.getJSONObject("bounds");
