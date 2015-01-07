@@ -1,6 +1,10 @@
 package bisikletliulasim.com.mahler;
 
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -12,7 +16,10 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -23,8 +30,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -36,6 +45,12 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 
 public class map extends FragmentActivity implements
@@ -50,8 +65,10 @@ public class map extends FragmentActivity implements
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     public LocationClient mLocationClient = null;
     public LocationManager mLocationManager = null;
+    Polyline directions_route = null;
     Location mostRecentLocation;
     TextView markerInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +113,8 @@ public class map extends FragmentActivity implements
 
         }
 
+        mMap.getUiSettings().setZoomControlsEnabled(false);
+
         for (int i=0; i < Constants.MARKER_TYPES.length; i++) {
             getMarkers(Constants.TYPE_URLS[i], Constants.MARKER_TYPES[i]);
         }
@@ -107,7 +126,9 @@ public class map extends FragmentActivity implements
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+
                 sliding_layout.hidePanel();
+                //viewInfo = false;
             }
         });
 
@@ -274,14 +295,14 @@ public class map extends FragmentActivity implements
                     card.setVisibility(View.GONE);
                 }
 
-
-
+                Boolean viewInfo = false;
                 TextView labeltext = (TextView) findViewById(R.id.labelWeb);
                 markerInfo = (TextView) findViewById(R.id.markerWeb);
                 if (properties.get("web") != null && properties.get("web").isJsonPrimitive()){
                     markerInfo.setText(properties.get("web").getAsString());
                     markerInfo.setVisibility(View.VISIBLE);
                     labeltext.setVisibility(View.VISIBLE);
+                    viewInfo = true;
                 }else{
                     labeltext.setVisibility(View.GONE);
                     markerInfo.setVisibility(View.GONE);
@@ -293,10 +314,20 @@ public class map extends FragmentActivity implements
                     markerInfo.setText(properties.get("telefon").getAsString());
                     markerInfo.setVisibility(View.VISIBLE);
                     labeltext.setVisibility(View.VISIBLE);
+                    viewInfo = true;
                 }else{
                     labeltext.setVisibility(View.GONE);
                     markerInfo.setVisibility(View.GONE);
                 }
+
+                card = (CardView) findViewById(R.id.markerInfoCard);
+                if (viewInfo){
+
+                    card.setVisibility(View.VISIBLE);
+                } else {
+                    card.setVisibility(View.GONE);
+                }
+
                 card = (CardView) findViewById(R.id.markerImageCard);
                 if (properties.get("resim") != null && properties.get("resim").isJsonPrimitive()) {
                     ImageView markerImage = (ImageView) findViewById(R.id.markerImage);
@@ -315,14 +346,94 @@ public class map extends FragmentActivity implements
                 return true;
             }
         });
+        int width = (int) Utils.dpToPx((float) 28.78, getApplicationContext());
+        int height = (int) Utils.dpToPx(35, getApplicationContext());
 
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), Constants.MARKERS[marker_type]);
+        Bitmap b = Bitmap.createScaledBitmap(bm, width , height, false);
         mMap.addMarker(
                 new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromResource(Constants.MARKERS[marker_type]))
+                        .icon(BitmapDescriptorFactory.fromBitmap(b))
                         .position(new LatLng(lat, lon))
                         .visible(visible)
                         .snippet(properties.toString())
         );
+
+    }
+
+    public void getDirections(Double lat, Double lon, final Boolean show_route){
+        getLocation();
+
+        if (directions_route != null){
+            directions_route.remove();
+        }
+
+        Double cur_lat = mostRecentLocation.getLatitude();
+        Double cur_lon = mostRecentLocation.getLongitude();
+
+        String url = String.format(Constants.Directions_API, cur_lat, cur_lon, lat, lon);
+
+        Ion.with(getApplicationContext())
+                .load(url)
+                .asString()
+                .setCallback(
+                        new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                try{
+                                    createDirectionsFromJson(result, show_route);
+
+                                }
+                                catch (JSONException ex){
+                                    Log.e(LOG_TAG, ex.toString());
+                                }
+
+                            }
+                        }
+                );
+    }
+
+
+    void createDirectionsFromJson(String json, Boolean show_route) throws JSONException {
+        JSONObject jsonObject = new JSONObject(json);
+        JSONObject routes = jsonObject.getJSONArray("routes").getJSONObject(0);
+        JSONObject bounds = routes.getJSONObject("bounds");
+        JSONObject route = routes.getJSONArray("legs").getJSONObject(0);
+
+        Double distance = (double) route.getJSONObject("distance").getInt("value");
+        if (show_route) {
+            Double start_lat = route.getJSONObject("start_location").getDouble("lat");
+            Double start_lon = route.getJSONObject("start_location").getDouble("lng");
+
+            JSONArray steps = route.getJSONArray("steps");
+            PolylineOptions line = new PolylineOptions().width(Utils.dpToPx(8, getApplicationContext())).color(Color.argb(150, 0, 0, 255)).geodesic(true);
+            line.add(new LatLng(start_lat, start_lon));
+
+            DirectionsJSONParser directionsJSONParser = new DirectionsJSONParser();
+
+            for (int i = 0; i < steps.length(); i++) {
+                JSONObject step = steps.getJSONObject(i);
+                String polyline = step.getJSONObject("polyline").getString("points");
+                List<LatLng> list = directionsJSONParser.decodePoly(polyline);
+
+                for (int k = 0; k < list.size(); k++) {
+                    LatLng point = list.get(k);
+                    line.add(point);
+                }
+
+            }
+            directions_route = mMap.addPolyline(line);
+            LatLng sw = new LatLng(bounds.getJSONObject("southwest").getDouble("lat"), bounds.getJSONObject("southwest").getDouble("lng"));
+            LatLng ne = new LatLng(bounds.getJSONObject("northeast").getDouble("lat"), bounds.getJSONObject("northeast").getDouble("lng"));
+
+            LatLngBounds bound = new LatLngBounds(sw, ne);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bound, (int) Utils.dpToPx(75, getApplicationContext())));
+        }
+        TextView distance_label = (TextView) findViewById(R.id.distanceView);
+        //RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
+        distance_label.setText(distance/1000 + " km");
+        //map.setPadding(0, Utils.dpToPx(100), 0, 0);
+        distance_label.setVisibility(View.VISIBLE);
 
     }
 

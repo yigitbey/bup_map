@@ -76,13 +76,13 @@ public class Constants {
     };
 
     public static final int[] MARKERS={
-            R.drawable.repair,
-            R.drawable.bdi,
-            R.drawable.rent,
-            R.drawable.park,
-            R.drawable.skull,
-            R.drawable.harbor,
-            R.drawable.toplutasima,
+            R.drawable.screwdriver,
+            R.drawable.heart,
+            R.drawable.bicycle,
+            R.drawable.parking,
+            R.drawable.alert,
+            R.drawable.ferry,
+            R.drawable.bus,
     };
 
 }
