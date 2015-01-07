@@ -20,9 +20,11 @@ public class Constants {
     public static final int DRAIN = 4;
     public static final int FERRY = 5;
     public static final int PUBLIC_TRANSPORT = 6;
-    public static final int TRANSPORT_ROADS = 7;
-    public static final int LEISURE_ROADS = 8;
-    public static final int IETT_ROADS = 9;
+
+
+    public static final int TRANSPORT_ROADS = 0;
+    public static final int LEISURE_ROADS = 1;
+    public static final int IETT_ROADS = 2;
 
     public static final String REPAIRSHOP_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20bisiklet_tamircileri&format=GEOJson";
     public static final String BDI_JSON = "http://bisikletliulasim.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20bisiklet_dostu_isletmeler&format=GEOJson";
@@ -60,6 +62,19 @@ public class Constants {
             FERRY_JSON,
             PUBLIC_TRANSPORT_JSON,
     };
+
+    public static final String[] ROAD_URLS = {
+            TRANSPORT_ROADS_JSON,
+            LEISURE_ROADS_JSON,
+            IETT_ROADS_JSON,
+    };
+
+    public static final int[] ROAD_TYPES = {
+            TRANSPORT_ROADS,
+            LEISURE_ROADS,
+            IETT_ROADS,
+    };
+
     public static final int[] MARKERS={
             R.drawable.repair,
             R.drawable.bdi,
