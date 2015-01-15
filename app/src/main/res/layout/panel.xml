@@ -54,7 +54,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
             android:text="Small Text"
             android:id="@+id/distanceView"
             android:visibility="invisible"
-             />
+                android:numeric="integer|signed|decimal" />
     </LinearLayout>
 
 

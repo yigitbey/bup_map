@@ -365,7 +365,7 @@ public class map extends FragmentActivity implements
         }
         TextView distance_label = (TextView) findViewById(R.id.distanceView);
         //RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
-        distance_label.setText(distance/1000 + " km");
+        distance_label.setText(String.format("%.2f km", distance/1000));
         //map.setPadding(0, Utils.dpToPx(100), 0, 0);
         distance_label.setVisibility(View.VISIBLE);
 
