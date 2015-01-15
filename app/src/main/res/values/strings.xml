@@ -2,5 +2,5 @@
 <resources>
 
     <string name="app_name">Mahler</string>
-    <string name="title_activity_map">Bisikletli Ulasim Haritasi</string>
+    <string name="title_activity_map">Bisikletli Ulaşım Haritası</string>
 </resources>

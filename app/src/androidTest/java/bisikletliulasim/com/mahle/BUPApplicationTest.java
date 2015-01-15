@@ -1,4 +1,4 @@
-package bisikletliulasim.com.mahler;
+package bisikletliulasim.com.mahle;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

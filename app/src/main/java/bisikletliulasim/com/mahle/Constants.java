@@ -1,6 +1,4 @@
-package bisikletliulasim.com.mahler;
-
-import java.util.Map;
+package bisikletliulasim.com.mahle;
 
 /**
  * Created by yigit on 04/07/14.

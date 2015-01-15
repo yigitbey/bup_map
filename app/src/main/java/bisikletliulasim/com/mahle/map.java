@@ -1,10 +1,8 @@
-package bisikletliulasim.com.mahler;
+package bisikletliulasim.com.mahle;
 
 import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -16,10 +14,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -30,7 +25,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -177,7 +171,8 @@ public class map extends FragmentActivity implements
 
                             }
                             catch (Exception ex){
-                                Log.e(Constants.LOG_TAG, ex.toString());
+                                ex.printStackTrace();
+                                //Log.e(Constants.LOG_TAG, ex.getStackTrace());
                                 Log.e("G", result_obj.toString());
                             }
                         }
@@ -190,9 +185,15 @@ public class map extends FragmentActivity implements
         if (road_type == Constants.IETT_ROADS){
             visible = false;
         }
+        try {
+            String title = properties.get("name").getAsString();
+            String description = properties.get("description").getAsString();
+        }
+        catch (UnsupportedOperationException ex){
+            String title = "";
+            String description = "";
+        }
 
-        String title = properties.get("name").getAsString();
-        String description = properties.get("description").getAsString();
         String category = properties.get("kategori").getAsString();
 
         int color = 0;
@@ -210,16 +211,25 @@ public class map extends FragmentActivity implements
 
         PolylineOptions line = new PolylineOptions().width(8).color(color).geodesic(true);
 
-        for (int k=0; k<line_coordinates.size(); k++){
-            JsonArray ko = (JsonArray) line_coordinates.get(k);
-            Double lat = ko.get(1).getAsDouble();
-            Double lon = ko.get(0).getAsDouble();
+        line_coordinates = line_coordinates.get(0).getAsJsonArray();
 
-            line.add(new LatLng(lat, lon));
+        for (int k=0; k<line_coordinates.size(); k++){
+            JsonArray ko = line_coordinates.get(k).getAsJsonArray();
+            try {
+                Double lat = ko.get(1).getAsDouble();
+                Double lon = ko.get(0).getAsDouble();
+                line.add(new LatLng(lat, lon));
+            }
+            catch (Exception ex) {
+                Log.e("CD", ex.toString());
+                Log.e("CDE", ko.toString());
+            }
+
         }
 
         Polyline polyline = mMap.addPolyline(line);
         polyline.setVisible(visible);
+
 
     }
 
