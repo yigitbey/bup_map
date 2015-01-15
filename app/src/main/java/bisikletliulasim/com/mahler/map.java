@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -115,7 +116,11 @@ public class map extends FragmentActivity implements
         mMap.getUiSettings().setZoomControlsEnabled(false);
 
         for (int i=0; i < Constants.MARKER_TYPES.length; i++) {
-            getJson(Constants.TYPE_URLS[i], Constants.MARKER_TYPES[i]);
+            getMarkers(Constants.TYPE_URLS[i], Constants.MARKER_TYPES[i]);
+        }
+
+        for (int i=0; i < Constants.ROAD_TYPES.length; i++) {
+            getRoad(Constants.ROAD_URLS[i], Constants.MARKER_TYPES[i]);
         }
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -129,7 +134,7 @@ public class map extends FragmentActivity implements
 
     }
 
-    private void getJson(String jsonUrl, final int type){
+    private void getMarkers(String jsonUrl, final int type){
         Ion.with(getApplicationContext())
                 .load(jsonUrl)
                 .asJsonObject()
@@ -155,6 +160,69 @@ public class map extends FragmentActivity implements
                 });
     }
 
+    private void getRoad(String jsonUrl, final int type){
+        Ion.with(getApplicationContext())
+                .load(jsonUrl)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        JsonArray result_array = result.get("features").getAsJsonArray();
+                        for(int i = 0; i < result_array.size(); i++) {
+                            JsonObject result_obj = result_array.get(i).getAsJsonObject();
+                            try {
+                                JsonObject properties = result_obj.get("properties").getAsJsonObject();
+                                JsonObject geometry = result_obj.get("geometry").getAsJsonObject();
+                                create_road(properties, geometry, type);
+
+                            }
+                            catch (Exception ex){
+                                Log.e(Constants.LOG_TAG, ex.toString());
+                                Log.e("G", result_obj.toString());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void create_road(JsonObject properties, JsonObject geometry, final int road_type){
+        boolean visible = true;
+        if (road_type == Constants.IETT_ROADS){
+            visible = false;
+        }
+
+        String title = properties.get("name").getAsString();
+        String description = properties.get("description").getAsString();
+        String category = properties.get("kategori").getAsString();
+
+        int color = 0;
+        if (category.equals("ulasim")){
+            color = Color.parseColor("#3E7BB6");
+        }
+        else if (category.equals("gezi")){
+            color = Color.parseColor("#FF6600");
+        }
+        else if (category.equals("iett")){
+            color = Color.parseColor("#A53ED5");
+        }
+
+        JsonArray line_coordinates = geometry.get("coordinates").getAsJsonArray();
+
+        PolylineOptions line = new PolylineOptions().width(8).color(color).geodesic(true);
+
+        for (int k=0; k<line_coordinates.size(); k++){
+            JsonArray ko = (JsonArray) line_coordinates.get(k);
+            Double lat = ko.get(1).getAsDouble();
+            Double lon = ko.get(0).getAsDouble();
+
+            line.add(new LatLng(lat, lon));
+        }
+
+        Polyline polyline = mMap.addPolyline(line);
+        polyline.setVisible(visible);
+
+    }
+
     private void create_marker(JsonObject properties, JsonObject geometry, final int marker_type){
 
         Double lat = geometry.get("coordinates").getAsJsonArray().get(1).getAsDouble();
@@ -170,8 +238,6 @@ public class map extends FragmentActivity implements
             public boolean onMarkerClick(Marker marker) {
                 JsonParser parser = new JsonParser();
                 final JsonObject properties = (JsonObject) parser.parse(marker.getSnippet());
-
-                getDirections(marker.getPosition().latitude, marker.getPosition().longitude, false);
 
                 int px = (int) Utils.dpToPx(Constants.SLIDING_PANEL_HEIGHT, getApplicationContext());
                 sliding_layout.setMinimumHeight(px);
