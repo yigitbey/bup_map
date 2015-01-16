@@ -11,9 +11,23 @@
     <item
         jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
         jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-6c2d790151658111425fab585006e7e62b43d0b5.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
         revision="21.0.1"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
         <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-6c2d790151658111425fab585006e7e62b43d0b5.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/gson-2.3-a25cee82c2831204c56777762e64b83cc2fdbab1.jar" />
     </item>
     <item
         jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.1.71/classes.jar"
@@ -21,6 +35,13 @@
         revision="21.0.1"
         sha1="0f6d5c1ef2e982c3b7858408e3df389cf5d202da">
         <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-2c3da94d75e985567792aeda2da2e1df182dce97.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-90ab2f70c2c354d7db8af0fbed50f7d83c1e82e1.jar" />
     </item>
     <item
         jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
@@ -37,9 +58,30 @@
         <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/library-2.4.0-65911c202b6b38a6188c2f57e61ea039a92987ea.jar" />
     </item>
     <item
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.ion/ion/2.0.5/49b5ebbf495380f27dd1986d0b5e5d86c18465a7/ion-2.0.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="49b5ebbf495380f27dd1986d0b5e5d86c18465a7">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/ion-2.0.5-f1a0228696e4c95d1c7ec5d50c733ee54a30b70e.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-e6a95be528bdc07ab80e02f840ef4fda3b052cd9.jar" />
+    </item>
+    <item
         jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
         jumboMode="false"
         revision="21.0.1"
+        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/systembartint-1.0.3-19de31ebb547aca793dc6b3d5e8b72f96c37c04d.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
         sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287">
         <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/systembartint-1.0.3-19de31ebb547aca793dc6b3d5e8b72f96c37c04d.jar" />
     </item>
@@ -56,6 +98,13 @@
         revision="21.0.1"
         sha1="965d5fbe58feeb131f0f5bfa26657b593db83359">
         <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/androidasync-2.0.5-0653e3c99f7955949dab5eb28c3bcff32ad8e3d7.jar" />
+    </item>
+    <item
+        jar="/Library/android-sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-1ee23c7cda0b71c6d0e18b018467ccc7b3e6c20b.jar" />
     </item>
     <item
         jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
@@ -84,6 +133,41 @@
         revision="21.0.1"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
         <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-1ee23c7cda0b71c6d0e18b018467ccc7b3e6c20b.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.sothree.slidinguppanel/library/2.0.4/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0e546fc8dc1f68c39d41c544e2155c797b558492">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-6c2653bdfc1f13bafd0b4a5d6a538433ed64a29b.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.1.71/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0f6d5c1ef2e982c3b7858408e3df389cf5d202da">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-2c3da94d75e985567792aeda2da2e1df182dce97.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-47ef3c75ad139999e736225d8db8a89589d5f20b.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/library-2.4.0-65911c202b6b38a6188c2f57e61ea039a92987ea.jar" />
+    </item>
+    <item
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.async/androidasync/2.0.5/965d5fbe58feeb131f0f5bfa26657b593db83359/androidasync-2.0.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="965d5fbe58feeb131f0f5bfa26657b593db83359">
+        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/androidasync-2.0.5-0653e3c99f7955949dab5eb28c3bcff32ad8e3d7.jar" />
     </item>
 
 </items>

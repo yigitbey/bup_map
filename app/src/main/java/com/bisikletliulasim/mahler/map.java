@@ -1,19 +1,25 @@
 package com.bisikletliulasim.mahler;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,7 +68,13 @@ public class map extends FragmentActivity implements
     Polyline directions_route = null;
     Location mostRecentLocation;
     TextView markerInfo;
-
+    ImageButton phoneButton;
+    ImageButton directionsButton;
+    ImageButton shareButton;
+    ImageButton captionButton;
+    LatLng active_location = null;
+    String active_phone = null;
+    String active_info = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +86,68 @@ public class map extends FragmentActivity implements
         }
         setContentView(R.layout.activity_map);
 
+        phoneButton = (ImageButton) findViewById(R.id.phoneButton);
+        directionsButton = (ImageButton) findViewById(R.id.directionsButton);
+        shareButton = (ImageButton) findViewById(R.id.shareButton);
+        captionButton = (ImageButton) findViewById(R.id.captionButton);
+        captionButton.setEnabled(false);
         sliding_layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
+        int px = (int) Utils.dpToPx(Constants.SLIDING_PANEL_HEIGHT, getApplicationContext());
+        sliding_layout.setMinimumHeight(px);
+        sliding_layout.setPanelHeight(px);
+        sliding_layout.hidePanel();
+
         map_fragment = findViewById(R.id.map);
 
         getLocation();
         mLocationClient = new LocationClient(this, this, this);
         setUpMapIfNeeded();
+        phoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + Uri.encode(active_phone.trim())));
+                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(callIntent);
+            }
+        });
+        directionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //sliding_layout.hidePanel();
+                sliding_layout.setEnabled(false);
+
+                getDirections(active_location.latitude, active_location.longitude, true);
+                captionButton.setEnabled(true);
+                captionButton.setImageDrawable(getResources().getDrawable(R.drawable.closecircle));
+            }
+        });
+        captionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (directions_route != null){
+                    directions_route.remove();
+                }
+                sliding_layout.hidePanel();
+                sliding_layout.setEnabled(true);
+
+                captionButton.setEnabled(false);
+                captionButton.setImageDrawable(getResources().getDrawable(R.drawable.information));
+            }
+        });
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, active_info);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+            }
+        });
+
+
     }
 
     private void setUpMapIfNeeded() {
@@ -246,16 +314,27 @@ public class map extends FragmentActivity implements
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+                active_location = marker.getPosition();
+                active_info = "";
+                sliding_layout.hidePanel();
+                final Handler handler2 = new Handler();
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        sliding_layout.clearAnimation();
+                        sliding_layout.showPanel();
+                    }
+                }, 300);
+
                 JsonParser parser = new JsonParser();
                 final JsonObject properties = (JsonObject) parser.parse(marker.getSnippet());
-
-                int px = (int) Utils.dpToPx(Constants.SLIDING_PANEL_HEIGHT, getApplicationContext());
-                sliding_layout.setMinimumHeight(px);
-                sliding_layout.setPanelHeight(px);
 
                 String title = properties.get("name").getAsString();
                 TextView title_text = (TextView) findViewById(R.id.captionView);
                 title_text.setText(title);
+                active_info = title + " ";
+
+                getDirections(marker.getPosition().latitude, marker.getPosition().longitude, false);
 
                 CardView card = (CardView) findViewById(R.id.markerDescriptionCard);
                 if (properties.get("description") != null && properties.get("description").isJsonPrimitive()){
@@ -267,6 +346,7 @@ public class map extends FragmentActivity implements
                         label.setText(properties.get("description").getAsString());
                         label.invalidate();
                         card.setVisibility(View.VISIBLE);
+
                     }
                 }else{
                     card.setVisibility(View.GONE);
@@ -283,6 +363,7 @@ public class map extends FragmentActivity implements
                     label.setText(properties.get("adres").getAsString());
                     label.invalidate();
                     card.setVisibility(View.VISIBLE);
+                    active_info = active_info + properties.get("adres").getAsString() + " ";
                 }else{
                     card.setVisibility(View.GONE);
                 }
@@ -313,6 +394,7 @@ public class map extends FragmentActivity implements
                     markerInfo.setVisibility(View.VISIBLE);
                     labeltext.setVisibility(View.VISIBLE);
                     viewInfo = true;
+                    active_info = active_info + properties.get("web").getAsString() + " ";
                 }else{
                     labeltext.setVisibility(View.GONE);
                     markerInfo.setVisibility(View.GONE);
@@ -325,9 +407,14 @@ public class map extends FragmentActivity implements
                     markerInfo.setVisibility(View.VISIBLE);
                     labeltext.setVisibility(View.VISIBLE);
                     viewInfo = true;
+                    phoneButton.setVisibility(View.VISIBLE);
+                    active_phone = properties.get("telefon").getAsString();
+                    active_info = active_info + properties.get("telefon").getAsString() + " ";
                 }else{
                     labeltext.setVisibility(View.GONE);
                     markerInfo.setVisibility(View.GONE);
+                    phoneButton.setVisibility(View.GONE);
+                    active_phone = null;
                 }
 
                 card = (CardView) findViewById(R.id.markerInfoCard);
@@ -352,7 +439,6 @@ public class map extends FragmentActivity implements
                 }else{
                     card.setVisibility(View.GONE);
                 }
-                sliding_layout.showPanel();
                 return true;
             }
         });

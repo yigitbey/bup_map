@@ -30,7 +30,7 @@ MERGED from com.android.support:cardview-v7:21.0.3:16:5
 		ADDED from AndroidManifest.xml:7:9
 	android:theme
 		ADDED from AndroidManifest.xml:9:9
-activity#bisikletliulasim.com.mahle.map
+activity#com.bisikletliulasim.mahler.map
 ADDED from AndroidManifest.xml:10:9
 	android:label
 		ADDED from AndroidManifest.xml:12:13
