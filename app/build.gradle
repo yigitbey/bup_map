@@ -2,12 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        bup {
-            keyAlias 'bup_play_store'
-            keyPassword 'ahmetahmet'
-            storeFile file('/Users/yigit/Google Drive/bup/bup_keystore.jks')
-            storePassword 'ahmetahmet'
-        }
         ne {
             keyAlias 'new_map'
             keyPassword 'ahmetahmet'
@@ -18,7 +12,7 @@ android {
     compileSdkVersion 21
     buildToolsVersion '21.0.1'
     defaultConfig {
-        applicationId "bisikletliulasim.com.mahler"
+        applicationId 'com.bisikletliulasim.mahler'
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 4
@@ -27,7 +21,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.ne
         }
