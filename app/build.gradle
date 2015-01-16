@@ -15,8 +15,8 @@ android {
         applicationId 'com.bisikletliulasim.mahler'
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 4
-        versionName '0.04'
+        versionCode 5
+        versionName '0.05'
         signingConfig signingConfigs.ne
     }
     buildTypes {
