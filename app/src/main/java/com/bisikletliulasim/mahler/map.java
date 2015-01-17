@@ -1,16 +1,17 @@
 package com.bisikletliulasim.mahler;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -23,10 +24,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.ProgressBarIndeterminate;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -50,12 +54,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class map extends FragmentActivity implements
-        GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+public class map extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public SlidingUpPanelLayout sliding_layout = null;
@@ -63,8 +67,9 @@ public class map extends FragmentActivity implements
     private static final String LOG_TAG = "BUPHarita";
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    public LocationClient mLocationClient = null;
+    public GoogleApiClient googleApiClient = null;
     public LocationManager mLocationManager = null;
+    public static ArrayList<Bitmap> marker_bitmaps;
     Polyline directions_route = null;
     Location mostRecentLocation;
     TextView markerInfo;
@@ -75,15 +80,50 @@ public class map extends FragmentActivity implements
     LatLng active_location = null;
     String active_phone = null;
     String active_info = null;
+    Boolean directions_mode = false;
+    LocationRequest locationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Boolean is_online = isOnline();
+        if (is_online == false){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.no_internet_message)
+                    .setTitle(R.string.no_internet_title);
+            AlertDialog dialog = builder.create();
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    System.exit(0);
+                }
+            });
+            dialog.show();
+
+        }
+
         int gms_enabled = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
         if (gms_enabled != ConnectionResult.SUCCESS){
             Log.e(LOG_TAG,"GMS not available");
-            return;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.no_gms_message)
+                    .setTitle(R.string.no_gms_title);
+            AlertDialog dialog = builder.create();
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    System.exit(0);
+                }
+            });
+            dialog.show();
+
+
         }
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+
         setContentView(R.layout.activity_map);
 
         phoneButton = (ImageButton) findViewById(R.id.phoneButton);
@@ -98,11 +138,9 @@ public class map extends FragmentActivity implements
         sliding_layout.setPanelHeight(px);
         sliding_layout.hidePanel();
 
+        marker_bitmaps = new ArrayList<Bitmap>();
         map_fragment = findViewById(R.id.map);
 
-        getLocation();
-        mLocationClient = new LocationClient(this, this, this);
-        setUpMapIfNeeded();
         phoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,23 +155,17 @@ public class map extends FragmentActivity implements
             public void onClick(View v) {
                 //sliding_layout.hidePanel();
                 sliding_layout.setEnabled(false);
-
+                directions_mode = true;
                 getDirections(active_location.latitude, active_location.longitude, true);
                 captionButton.setEnabled(true);
                 captionButton.setImageDrawable(getResources().getDrawable(R.drawable.closecircle));
+                captionButton.setColorFilter(Color.BLACK);
             }
         });
         captionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (directions_route != null){
-                    directions_route.remove();
-                }
-                sliding_layout.hidePanel();
-                sliding_layout.setEnabled(true);
-
-                captionButton.setEnabled(false);
-                captionButton.setImageDrawable(getResources().getDrawable(R.drawable.information));
+                exitDirectionsMode();
             }
         });
         shareButton.setOnClickListener(new View.OnClickListener() {
@@ -147,9 +179,29 @@ public class map extends FragmentActivity implements
             }
         });
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ProgressBarIndeterminate progressBar = (ProgressBarIndeterminate) findViewById(R.id.progressBar);
+                progressBar.setVisibility(View.GONE);
+            }
+        }, 250);
+
 
     }
 
+    private void exitDirectionsMode(){
+        if (directions_route != null){
+            directions_route.remove();
+        }
+        sliding_layout.hidePanel();
+        sliding_layout.setEnabled(true);
+
+        captionButton.setEnabled(false);
+        captionButton.setImageDrawable(getResources().getDrawable(R.drawable.information));
+        captionButton.clearColorFilter();
+
+    }
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -174,26 +226,40 @@ public class map extends FragmentActivity implements
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
 
         }
+        else{
+            LatLng currentLocation = new LatLng(40, 30);
+
+            mMap.setPadding(0, (int) Utils.dpToPx(50, getApplicationContext()), 0, 0);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 6));
+        }
 
         mMap.getUiSettings().setZoomControlsEnabled(false);
 
-        for (int i=0; i < Constants.MARKER_TYPES.length; i++) {
+        for (int i = 0; i < Constants.MARKERS.length; i++) {
+            int width = (int) Utils.dpToPx((float) 28.78, getApplicationContext());
+            int height = (int) Utils.dpToPx(35, getApplicationContext());
+
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), Constants.MARKERS[i]);
+            Bitmap b = Bitmap.createScaledBitmap(bm, width, height, false);
+            marker_bitmaps.add(b);
+        }
+
+        for (int i = 0; i < Constants.MARKER_TYPES.length; i++) {
             getMarkers(Constants.TYPE_URLS[i], Constants.MARKER_TYPES[i]);
         }
 
-        for (int i=0; i < Constants.ROAD_TYPES.length; i++) {
+        for (int i = 0; i < Constants.ROAD_TYPES.length; i++) {
             getRoad(Constants.ROAD_URLS[i], Constants.MARKER_TYPES[i]);
         }
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
-                sliding_layout.hidePanel();
-                //viewInfo = false;
+                if (!directions_mode) {
+                    sliding_layout.hidePanel();
+                }
             }
         });
-
     }
 
     private void getMarkers(String jsonUrl, final int type){
@@ -207,11 +273,9 @@ public class map extends FragmentActivity implements
                         for(int i = 0; i < result_array.size(); i++) {
                             JsonObject result_obj = result_array.get(i).getAsJsonObject();
                             try {
-
                                 JsonObject properties = result_obj.get("properties").getAsJsonObject();
                                 JsonObject geometry = result_obj.get("geometry").getAsJsonObject();
                                 create_marker(properties, geometry, type);
-
                             }
                             catch (Exception ex){
                                 Log.e(Constants.LOG_TAG, ex.toString());
@@ -314,11 +378,13 @@ public class map extends FragmentActivity implements
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+                if (directions_mode){
+                    exitDirectionsMode();
+                }
                 active_location = marker.getPosition();
                 active_info = "";
                 sliding_layout.hidePanel();
-                final Handler handler2 = new Handler();
-                handler2.postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         sliding_layout.clearAnimation();
@@ -368,19 +434,16 @@ public class map extends FragmentActivity implements
                     card.setVisibility(View.GONE);
                 }
                 card = (CardView) findViewById(R.id.markerPromotionCard);
-                Log.i("BUP", "" + properties.get("kampanya"));
+
                 if (properties.get("kampanya") != null &&
                         properties.get("kampanya").isJsonPrimitive()&&
                         !properties.get("kampanya").getAsString().equalsIgnoreCase("")){
                     View infobox =  findViewById(R.id.promotion);
                     ImageView image = (ImageView) infobox.findViewById(R.id.label);
-
                     image.setImageResource(R.drawable.ticket);
                     TextView label = (TextView) infobox.findViewById(R.id.info);
-                    Log.i("BUP", "" + label.getText());
                     label.setText(properties.get("kampanya").getAsString());
                     label.invalidate();
-                    Log.i("BUP", "" + label.getText());
                     card.setVisibility(View.VISIBLE);
                 }else{
                     card.setVisibility(View.GONE);
@@ -442,14 +505,12 @@ public class map extends FragmentActivity implements
                 return true;
             }
         });
-        int width = (int) Utils.dpToPx((float) 28.78, getApplicationContext());
-        int height = (int) Utils.dpToPx(35, getApplicationContext());
 
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), Constants.MARKERS[marker_type]);
-        Bitmap b = Bitmap.createScaledBitmap(bm, width , height, false);
+
+
         mMap.addMarker(
                 new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromBitmap(b))
+                        .icon(BitmapDescriptorFactory.fromBitmap(marker_bitmaps.get(marker_type)))
                         .position(new LatLng(lat, lon))
                         .visible(visible)
                         .snippet(properties.toString())
@@ -457,9 +518,8 @@ public class map extends FragmentActivity implements
 
     }
 
-    public void getDirections(Double lat, Double lon, final Boolean show_route){
-        getLocation();
 
+    public void getDirections(Double lat, Double lon, final Boolean show_route){
         if (directions_route != null){
             directions_route.remove();
         }
@@ -526,9 +586,7 @@ public class map extends FragmentActivity implements
             mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bound, (int) Utils.dpToPx(75, getApplicationContext())));
         }
         TextView distance_label = (TextView) findViewById(R.id.distanceView);
-        //RelativeLayout distance_layout = (RelativeLayout) findViewById(R.id.distance_layout);
         distance_label.setText(String.format("%.2f km", distance/1000));
-        //map.setPadding(0, Utils.dpToPx(100), 0, 0);
         distance_label.setVisibility(View.VISIBLE);
 
     }
@@ -536,13 +594,34 @@ public class map extends FragmentActivity implements
     @Override
     public void onConnected(Bundle dataBundle) {
         // Display the connection status
-        mostRecentLocation = mLocationClient.getLastLocation();
+        if (!isOnline()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.no_internet_message)
+                    .setTitle(R.string.no_internet_title);
+            AlertDialog dialog = builder.create();
+
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    System.exit(0);
+                }
+            });
+            dialog.show();
+
+        }
+        else{
+            createLocationRequest();
+            mostRecentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+            setUpMapIfNeeded();
+        }
 
     }
+
     @Override
-    public void onDisconnected() {
-        // Display the connection status
+    public void onConnectionSuspended(int i) {
+
     }
+
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         /*
@@ -578,52 +657,78 @@ public class map extends FragmentActivity implements
     @Override
     public void onLocationChanged(Location location) {
         mostRecentLocation = location;
-    }
-    @Override
-    public void onProviderDisabled(String provider) {
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+        mMap.setMyLocationEnabled(true);
     }
 
     @Override
     protected void onResume() {
+        if (!isOnline()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.no_internet_message)
+                    .setTitle(R.string.no_internet_title);
+            AlertDialog dialog = builder.create();
+
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    System.exit(0);
+                }
+            });
+            dialog.show();
+
+        }
         super.onResume();
-        mLocationClient.connect();
-        setUpMapIfNeeded();
+        googleApiClient.connect();
     }
 
     @Override
     protected void onStart() {
+        if (!isOnline()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.no_internet_message)
+                    .setTitle(R.string.no_internet_title);
+            AlertDialog dialog = builder.create();
+
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    System.exit(0);
+                }
+            });
+            dialog.show();
+
+        }
         super.onStart();
-        mLocationClient.connect();
-        setUpMapIfNeeded();
+        googleApiClient.connect();
     }
     @Override
     protected void onStop() {
-        mLocationClient.disconnect();
+        if (isOnline()){
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                googleApiClient, this);
+        }
+
         super.onStop();
     }
     @Override
     protected void onPause() {
-        mLocationClient.disconnect();
+        if (isOnline()){
+            LocationServices.FusedLocationApi.removeLocationUpdates(
+                    googleApiClient, this);
+        }
+
         super.onPause();
     }
 
-    private void getLocation() {
-        mLocationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        String provider = mLocationManager.getBestProvider(criteria,true);
-
-        mLocationManager.requestLocationUpdates(provider, 5000, 5, this);
-        mostRecentLocation = mLocationManager.getLastKnownLocation(provider);
+    protected void createLocationRequest() {
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
-
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
 }
