@@ -23,6 +23,9 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCUpXpRkEz8YyBn6D7KqROx3nNzB_p6IbE" />
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="5382ef9a2523f639a39e1749778444389523dad3" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
     signingConfigs {
@@ -15,8 +30,8 @@ android {
         applicationId 'com.bisikletliulasim.mahler'
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 7
-        versionName '0.07'
+        versionCode 9
+        versionName '0.09'
         signingConfig signingConfigs.ne
     }
     buildTypes {
@@ -43,4 +58,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:+'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile('com.crashlytics.sdk.android:crashlytics:2.2.0@aar') {
+        transitive = true;
+    }
 }

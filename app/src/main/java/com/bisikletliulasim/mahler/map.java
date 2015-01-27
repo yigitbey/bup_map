@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.gc.materialdesign.views.ProgressBarIndeterminate;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -50,6 +51,7 @@ import com.koushikdutta.ion.Ion;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import io.fabric.sdk.android.Fabric;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,6 +88,7 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         Boolean is_online = isOnline();
         if (is_online == false){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
