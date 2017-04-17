@@ -7,6 +7,8 @@
         <item name="android:colorPrimaryDark">#5489c8</item>
         <item name="android:colorPrimary">#5489c8</item>
         <item name="android:textColorPrimary">#ffffff</item>
+        <item name="colorAccent">#E91E63</item>
+        <!--<item name="android:colorBackground">#1E88E5</item>-->
 
     </style>
 

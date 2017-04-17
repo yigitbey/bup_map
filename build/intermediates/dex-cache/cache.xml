@@ -2,172 +2,634 @@
 <items version="2" >
 
     <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/gson-2.3-a25cee82c2831204c56777762e64b83cc2fdbab1.jar" />
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/e66687f386e45ed597e62d6ccb79dd5d05bfb6ed/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6f233cb35a6ea92364130d2d48791c461ec65983">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d313dae427b7520bae107d1fcdda46a49c645101/classes.dex" />
     </item>
     <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-90ab2f70c2c354d7db8af0fbed50f7d83c1e82e1.jar" />
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/f2c7b57e8f87168d82abab6ffb49b5e7400ee471/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="125bce1fb2d481b964fabf75f0949957ebe9ecd1">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_be5e1eeed478e852ed05534775975df7bf44f83c/classes.dex" />
     </item>
     <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.ion/ion/2.0.5/49b5ebbf495380f27dd1986d0b5e5d86c18465a7/ion-2.0.5.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="49b5ebbf495380f27dd1986d0b5e5d86c18465a7">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/ion-2.0.5-f1a0228696e4c95d1c7ec5d50c733ee54a30b70e.jar" />
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/d42e3e2a314cd338d5e20da28ca6a6f4f27d41dc/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="19696dc358ac668e341f28c41e3387d61ccdb81d">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f5e480987d36fad08d215f805540bf8ee4e982ad/classes.dex" />
     </item>
     <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-e6a95be528bdc07ab80e02f840ef4fda3b052cd9.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/systembartint-1.0.3-19de31ebb547aca793dc6b3d5e8b72f96c37c04d.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-e8ac400015baf0a392f0566880b81e07ac4d335b.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.async/androidasync/2.0.5/965d5fbe58feeb131f0f5bfa26657b593db83359/androidasync-2.0.5.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="965d5fbe58feeb131f0f5bfa26657b593db83359">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/androidasync-2.0.5-0653e3c99f7955949dab5eb28c3bcff32ad8e3d7.jar" />
-    </item>
-    <item
-        jar="/Library/android-sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-1ee23c7cda0b71c6d0e18b018467ccc7b3e6c20b.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.ion/ion/2.0.5/49b5ebbf495380f27dd1986d0b5e5d86c18465a7/ion-2.0.5.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="49b5ebbf495380f27dd1986d0b5e5d86c18465a7">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/ion-2.0.5-f1a0228696e4c95d1c7ec5d50c733ee54a30b70e.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.async/androidasync/2.0.5/965d5fbe58feeb131f0f5bfa26657b593db83359/androidasync-2.0.5.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="965d5fbe58feeb131f0f5bfa26657b593db83359">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/androidasync-2.0.5-0653e3c99f7955949dab5eb28c3bcff32ad8e3d7.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-e6a95be528bdc07ab80e02f840ef4fda3b052cd9.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-6c2d790151658111425fab585006e7e62b43d0b5.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-6c2d790151658111425fab585006e7e62b43d0b5.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-47ef3c75ad139999e736225d8db8a89589d5f20b.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/library-2.4.0-65911c202b6b38a6188c2f57e61ea039a92987ea.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.github.navasmdc/MaterialDesign/1.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="72e9855052de681a5ff07d53ac5044d0274ae923">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-bee23bab36125cb73513ba6db2c92de9d2ca844c.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/systembartint-1.0.3-19de31ebb547aca793dc6b3d5e8b72f96c37c04d.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.sothree.slidinguppanel/library/2.0.4/classes.jar"
-        jumboMode="false"
-        revision="21.0.1"
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/0aaf8b19abd6ebf577c6b573e07cb49448e4e144/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
         sha1="0e546fc8dc1f68c39d41c544e2155c797b558492">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-6c2653bdfc1f13bafd0b4a5d6a538433ed64a29b.jar" />
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ead3464f8e516f1f49fcd78ad0b268b69026c394/classes.dex" />
     </item>
     <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-90ab2f70c2c354d7db8af0fbed50f7d83c1e82e1.jar" />
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/2ea1ea1fdf305de5638a210a4a77653e2cc2d46e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c7626a9aa507bbbdc16188bc9a9f9bf3370c1ddd">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ae104995bc01a78008052752b63d82aee997b354/classes.dex" />
     </item>
     <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/8734362b8c306c55c70f25b86d3107206cb39f03/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cce5792fa30ee8520620f298bf920309423b180f">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8d6efea4b08e447d38a7428e7d1bb02d7889a9d1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/6150cbce6eb2b4dfe867914558cdc41e83e99135/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="44098e691b36776973374ac03afe0225b17f8a74">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_74b89f8fedaa5ec45045196dd5e8623c6cacf906/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/Projects/bup_map/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a884b8093a608daf1e3ed062d20c40125d27998b">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_735187ba6eea59dcd720d9fdc25b587705ef6178/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/40339f691a10b93561c214110de193872b2d4c74/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="abf7c64e0bbaaa931738856734f76646ae62d9a5">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_faae5abd35b25ee636f2f29fcf4c9f01f15b90da/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/4a175c9d84c00d1805b8fbe6bf51ce92cb2bef7c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e6351d374c1ede2d6cb70ec7eaa016872c47c108/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/32c3c12a3f01eda08b6f10e29ca9a1e69bd1626e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6003d64df88a6ce5e961fa2bad7f1b9b97689ac1">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a386086c1d43f740d0c59cc3a2758c5ab1f8d917/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/4ac5e865ce6002d5d8b663d9cd6c6167bc8e332c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="536fd6afd6e1280607c5d70306eb32d385db7964">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2a8b90231d8aab5b4688b27165599a959ea4a3e3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/f2ea9f3ac15f2275078520e7d792bd3a23a19f61/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4b42a61cd5924f28e95894e859e6abe57847e2f3">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_779f9359e692e83d89da6eaa5b4448539c95eb46/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/009e2acda2003ac36e2f9431a349ec08a31bfdd0/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e06c52639f3827915856952c969109512ab6cd92/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/035549b1dc7caf30aa7484bd55880b23050d2917/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="825c2e97a00df4df5b0f3081faa4fd6280cd7c72">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aebf49b4db652424a6df977ec8823f701fc15c22/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/5803b5ac2347f90cbcd665765390de369db3e259/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bb004ea36f8802bad30000e286c177691740a322">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8cc557dcfdd14097780e6cdc4b495d128f68da73/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/62a3b762293271452986b6449b99cc6ede449df7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="25f55515117e14a658120a7b01a9ea5170409db4">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e8044bee26d6977fd614f178148e0fe624e2bf1c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/d09cf3da056d265f7e05338bb9babe2b02abde54/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="87405405e403de68f4057757b8a2e8de02bd65d0">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_535774b5cc1787931fd59419e0d44608242808f2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/ab78557aa04e88137980cc54ccf95c6ec4b71391/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8dfe54fbaf4f2a27d395ddf806d0c011170999e0">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_092e5d0e547494d6d114f28fa3a771f32b759679/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/ffc537633da26805cc2a2040c9c7689cc38e8fae/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="efae381df589f3d4977c346c8a980f030315bb8b">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_78e968f3d502ed8fcc4574c3d340c70d815d4fbe/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/c2ec1e12f20b115fd7dfa0a055cd4b820e1ddec4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ec7d3099b4e3cf23230c78acaae438f3371e1c19">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5d6ddda6aab8680190f0fcf7b4c629cb74bda2ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/7046b3fed422e1af1fb69a4a8d5224a07e26ba79/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2a7ffe939ffd830b5d4052f3c1c4c235923790ce">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_db70bd2a2acd379d37198acbfbf5b5efc193766c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/9a117d451ad7e6e00f929e26f7bf31ca76039e2a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c7ba26433d9e9f4429d83ff65ad79bfc801dc00a">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f1182a76932a1458985eb9b937d835182ad561ee/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/f2208fb6204172cb9c9e1e2ccc445d13cc1b7d6f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="dbae35d7fc3427d30bef0037bdf61ad0d8d984f8">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_eb7904ff7d5c1be979e5c21562a847e3745e275e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/f1f86fad36e461d7616ad652748982963b0f35aa/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a1aa1dd9917e887bfe732cc5e561ae6ae8f9a84a">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f8642c46354491b8315d074726faeff07273ce4f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/30c56aed574b6ec8f05dee5a593968bac15eb328/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_95e846f7a5ca0baac266a35d4d5ab6d1888ea1a2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/71e7572decae6517668b7c7b1f71d1a967ccd74f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="da5c606c36276a12a356e351882044c6b4b9e8d4">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_939e826ff21226214a7d5b66b4607745b548e1fa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/65eac66f32401deed0fb3df996123ab565cf132e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e4851331b3944beb6e7f77316a7661f53781da62">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d19d3a8f2f7a94fd458e62882c6dafbfe220926c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/59dea3a3bc7262b9082ccba627c7e97c09ff5d60/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e5d38c87b54025428ca04c332591385bfd5f86a7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/fe29f01d177a928b3b89a8ac6b277aef2f3d0150/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5814c29c186e681bd3ef6e80bcb9b5b9b0ba66e7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/012c678ba8896b3df35e986dc2bb44c566ffb7b3/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d81a3b0a16f48b4456f442552b62f4b1a472ce24">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0126fd7788b8e0a4e8791c395b8a083a56e80980/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/Projects/bup_map/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_3e5960d1b734a6897196ca62351454ca12d8d250/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/ecbf8447fd825f9f42f195af706c59a35738904e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="12032271e6be735e811ad529cb08ff066c381640">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7a1fee0e330e1766ebdba97e6fce63f8f96aa3a8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/571ee6414c14645c66ed9ef2913358878c061d8f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d0a843615f3b5fa3a080497709f5436696149a09">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ef5c2e0171c2ce7e82a386bee84920636bf501af/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/e5da7ca61562e280add3e33a1ac41044e26e2a34/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ed94e7592d6a24c8ba723d765ef9ae765fa6a4a3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/a7b9c708b8e15b8fb75cc47dcb636f1cc4839e91/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7d67042688d34474a82fe4ef4c6514ef471377ef">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2958faa2d27fd65adba2f86f15de9f1d1bf26d73/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/835325d71d96be21fcc2a03e9a0c71b4af00c4a9/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bdcc2a9572f18b8c90a3a157cab6cdfc97c6c736">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_44c5e53127b251dd7905ecdd5c2eb0798864ad7e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/43e972587ee42da433cf5bc08a5691fd82309e88/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0a5d5553c308643a9022f15513ebdd59e9c78d82">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_dee2a2979e8427bce34011b37235c74c68cec20e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/d33eaa218896704ddb6db3c6c79b958f72794090/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cfa47e1b140562d47bc670629d07e209cd8b02c4">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_58262fb58f442df2127918d9cd9a601d7f9b89ce/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/984e6154c47fd198b157a39b282571f6e3f839d4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6c74dab42788b458960618238f338d324b6f0656">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_cf92670e898c58f200fea7f064243c43762679c3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/c6d0ef21c797591ccf9f529841eba93e613aa09c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="399f75732ff1ac159f9e73611536f1508bf18d3b">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7688e850c4ff5cff1a88c48a840da750caa2c59f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/864e4a0928c2742e42f95d9fb9767b309da79f76/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="379a48c2da13ffb7ec7134f2c715663834357670">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_55549f0cb74d3c164db0417e4b667491c9041af7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/d208880f484c17791a1c53ac0c0c00c4ddd73ed0/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="888983f51cf34f57a93ff16832552f2f15937212">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c3678be6ccd3ffd6ddd3713a073b2ac6bc47c18a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/fb6912624b15bf98af9dc7a39455b94823b88545/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bfd85a88cf976eb2c54507cc914d8e8914c2f71e">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8f549558f9c869691ea80f9169c2fa5af96eca1f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/d13cd93878298f07ad3780b6a84d5d887092b052/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b136ac09f209c1d91fec7db8518e33d4373c8f39">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a0783356437701fbc0abae377b2c5437ffd94235/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/systembartint-1.0.3_19de31ebb547aca793dc6b3d5e8b72f96c37c04d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/0f1ef915f6a9ce2aff49761699056fa74d315a7b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a3826817a4de1daa170c33bbc04db24ab6826bd5">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4da8f99dcee79c25915fca30b7eaa8ed5533c8e4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/26535d708528d8b3559d1d0aff4fb8672466ea1c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4e684205744f814a73b7752545e0661330415c9e">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_478691a39d6894879b4167fe3a3b5004d8e31f2e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/f629527bd767c5f52e13cded8fc8dcfb11631f58/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1f9df8b2bfff203397548ee400789154968adfe8">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4f2b6e2c1fa4533765cbc26b3f0313a81106e2fb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Library/Google/android-sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.3.1_0aea61fcd998ff493e783bf3f9cf379d3292b733/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/a989b1a965b640e6c1e3afd55c801f30fa572f1e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf481b2af4d8f89935baf75972976b5681533176">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_93b9c6c590f0de54b929b21163dfac72587895db/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/459b9796d0a91980971ce767bb8f81b12d2831bd/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a87ce5036bc383fcd3d5368b0a1f30c61795d028/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
-        jumboMode="false"
-        revision="21.0.1"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
         sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/gson-2.3-a25cee82c2831204c56777762e64b83cc2fdbab1.jar" />
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.3_a25cee82c2831204c56777762e64b83cc2fdbab1/classes.dex" />
     </item>
     <item
-        jar="/Library/android-sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.0.1"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-1ee23c7cda0b71c6d0e18b018467ccc7b3e6c20b.jar" />
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/e6fa674575d6d8b024037c4ffc46562eeb073712/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b6818f5804ca0b5eb089d902458faea4179eca1d">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_73d7a7f6865d466b619a60facbfedaecfd01b5e1/classes.dex" />
     </item>
     <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.sothree.slidinguppanel/library/2.0.4/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="0e546fc8dc1f68c39d41c544e2155c797b558492">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-6c2653bdfc1f13bafd0b4a5d6a538433ed64a29b.jar" />
-    </item>
-    <item
-        jar="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/classes-47ef3c75ad139999e736225d8db8a89589d5f20b.jar" />
-    </item>
-    <item
+        is-multidex="true"
         jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
         sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="/Users/yigit/AndroidStudioProjects/Mahler/app/build/intermediates/pre-dexed/debug/library-2.4.0-65911c202b6b38a6188c2f57e61ea039a92987ea.jar" />
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/library-2.4.0_65911c202b6b38a6188c2f57e61ea039a92987ea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/27ae18a4d887ed5bba7825c423b3d0e6b605cbe7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b2349ddfe04831042844cbf055e5a072da37ddf8">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4868d5298984633ec6256a5ff7da5bd0dfcb3a51/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/1c6636eebf8e2241917fe768495a5bd6b276ecac/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_834840598089d96c21cff0a3aabb73d21162d29e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/9d56207ae9cb45daf5e4ec9c0ebcc26fbe839e0c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5ee29abfc804ebd51d65a4bde424c0ee74363939">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c0bf7bd2165daee3dd17b8c0118a482a6368c931/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/6c1bdaf2767266aee2b04317a647fb2c54df30ca/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bb115a110992b254f767f337da233071f6f940b8">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_732c6a699209c6aa85a294bc4a862eb79c82e359/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/d4f008ab6465a5100e433c9220f16a93925364ec/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b215e312bdc1ee7bfda31674eab5df8bad45c014">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_387b9e611a9a3705ebaa89f98c89799f75fb313f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/acce9ef750cead2112b9decc42fbc22913cc9725/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c3c7f923e1df76640acb3a24823600f034a5d226">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0324ee475adcb193c75be3c50c37027530f56513/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/b001cc38f1b6d3035f5fd0a94effff87c84f4f8e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6fb0b3c73152c412c3e2ff9f350aaa38556ee681/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/2618a6093aec7f5adc8fee088da9acb13539e8c2/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d395c5142f474891c7750f13b6a85d14682f166b">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4d1488245a95e612c936c821f6d4cd0734cc742c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/54e92b51dd42d4f70fc567a7bbdf418c2f5adc8f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aabc5ba1a902ba4fc0ff202da970b7ad0a033a06/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/012838df713e5fd25cc1afa58f196f116445c166/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ab8343c3aadefce37313ceadd8bc4db1993f2ff0">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_175740549936dfe8e2655763247cfa8deb19a0f6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/2abcab24c6911ecc7488b1a081298d2add247842/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4b32372f6821e003ae24cd3389bdd7925247f100">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_210e75fd3d61088c2a2f939fc34ad772b3401572/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/44a2f1d04e25c6531715d6179730f1e5deb80502/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3683531139103cc263b71d8b5ac6062832a8fd30">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ff019682feb26b29813df88eba2fa0d168917eb4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.android/build-cache/66c2726bf758c2375fa833abde7ee45a68a33f76/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0bb2f0934fa55799508ba58ffc9ba579b35744b8">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a08d55a0a15134e59d25fd9cf0ff3677f1e19c35/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.async/androidasync/2.1.6/e3d5f6ab2003e31f2cf5ea61b4731a21e9517935/androidasync-2.1.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e3d5f6ab2003e31f2cf5ea61b4731a21e9517935">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/androidasync-2.1.6_4d8b92375d077a62be47dde0d6e44cfc58941845/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/yigit/.gradle/caches/modules-2/files-2.1/com.koushikdutta.ion/ion/2.1.6/cd55ef3ba6d8b62838b658ba2507b019dffb3a08/ion-2.1.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cd55ef3ba6d8b62838b658ba2507b019dffb3a08">
+        <dex dex="/Users/yigit/Projects/bup_map/app/build/intermediates/transforms/dex/debug/folders/1000/10/ion-2.1.6_d29f17bbe273167f0b71d4be18d81364513b243f/classes.dex" />
     </item>
 
 </items>

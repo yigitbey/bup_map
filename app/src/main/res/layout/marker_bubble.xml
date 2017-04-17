@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:id="@+id/point_name"
+
     android:visibility="visible">
 
     <TextView

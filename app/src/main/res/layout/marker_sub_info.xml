@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:layout_height="wrap_content"
+    android:background="@color/cardview_light_background"
+
     >
     <ImageView
         android:layout_width="80dp"
@@ -15,6 +17,8 @@
         android:padding="10dp"
         android:layout_weight="30"
         android:contentDescription="ds"
+        android:background="@color/cardview_light_background"
+
         android:src="@android:drawable/star_big_on" />
 
     <TextView
@@ -27,5 +31,6 @@
         android:id="@+id/info"
         android:gravity="center_vertical"
         android:paddingStart="30dp"
+        android:background="@color/cardview_light_background"
         android:paddingLeft="30dp"/>
 </LinearLayout>

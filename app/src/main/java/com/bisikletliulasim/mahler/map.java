@@ -5,17 +5,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.Manifest;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +28,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.gc.materialdesign.views.ProgressBarIndeterminate;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -35,6 +38,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -51,7 +56,6 @@ import com.koushikdutta.ion.Ion;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import io.fabric.sdk.android.Fabric;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +65,7 @@ import java.util.List;
 
 
 public class map extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, OnMapReadyCallback {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public SlidingUpPanelLayout sliding_layout = null;
@@ -85,10 +89,103 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
     Boolean directions_mode = false;
     LocationRequest locationRequest;
 
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
+    public static final int MY_PERMISSIONS_REQUEST_STORAGE = 1;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        mostRecentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                        createLocationRequest();
+                        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+
+                        setUpMapIfNeeded();
+
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+                    }
+                    //return;
+                }
+
+
+                // other 'case' lines to check for other
+                // permissions this app might request
+            }
+            case MY_PERMISSIONS_REQUEST_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                //return;
+            }
+        }
+    }
+
+    void checkPermissions(){
+        int check = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int check2 = PackageManager.PERMISSION_GRANTED;
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+
+            }
+        }
+        else{
+            mostRecentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+            createLocationRequest();
+            setUpMapIfNeeded();
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_STORAGE);
+
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+
+        //Fabric.with(this, new Crashlytics());
         Boolean is_online = isOnline();
         if (is_online == false){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -120,14 +217,9 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
 
 
         }
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        googleApiClient.connect();
 
         setContentView(R.layout.activity_map);
+        map_fragment = findViewById(R.id.map);
 
         phoneButton = (ImageButton) findViewById(R.id.phoneButton);
         directionsButton = (ImageButton) findViewById(R.id.directionsButton);
@@ -142,7 +234,6 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
         sliding_layout.hidePanel();
 
         marker_bitmaps = new ArrayList<Bitmap>();
-        map_fragment = findViewById(R.id.map);
 
         phoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +281,13 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
             }
         }, 250);
 
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+
 
     }
 
@@ -205,17 +303,26 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
         captionButton.clearColorFilter();
 
     }
+
+
+
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
         }
     }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        setUpMap();
+    }
+
 
     private void setUpMap() {
 
@@ -225,7 +332,11 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
             LatLng currentLocation = new LatLng(lat, lon);
 
             mMap.setPadding(0, (int) Utils.dpToPx(50, getApplicationContext()), 0, 0);
-            mMap.setMyLocationEnabled(true);
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
 
         }
@@ -398,7 +509,15 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
                 JsonParser parser = new JsonParser();
                 final JsonObject properties = (JsonObject) parser.parse(marker.getSnippet());
 
-                String title = properties.get("name").getAsString();
+                String title;
+                try{
+                    title = properties.get("name").getAsString();
+                }
+                catch (Exception e) {
+                    title = "";
+                }
+
+
                 TextView title_text = (TextView) findViewById(R.id.captionView);
                 title_text.setText(title);
                 active_info = title + " ";
@@ -612,10 +731,18 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
 
         }
         else{
-            createLocationRequest();
-            mostRecentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-            setUpMapIfNeeded();
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                checkPermissions();
+            }else{
+
+                mostRecentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                createLocationRequest();
+                LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+
+                setUpMapIfNeeded();
+            }
         }
 
     }
@@ -660,7 +787,13 @@ public class map extends FragmentActivity implements GoogleApiClient.ConnectionC
     @Override
     public void onLocationChanged(Location location) {
         mostRecentLocation = location;
-        mMap.setMyLocationEnabled(true);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (mMap != null) {
+                mMap.setMyLocationEnabled(true);
+            }
+        }
     }
 
     @Override

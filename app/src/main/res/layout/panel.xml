@@ -29,17 +29,18 @@ android:divider="@android:drawable/divider_horizontal_dark">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="80"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
+
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/app_name"
             android:id="@+id/captionView"
 
             android:textColor="#ff000000"
@@ -51,10 +52,12 @@ android:divider="@android:drawable/divider_horizontal_dark">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:text=""
             android:id="@+id/distanceView"
             android:visibility="invisible"
-                android:numeric="integer|signed|decimal" />
+            android:textIsSelectable="false"
+            />
     </LinearLayout>
 
 
@@ -70,7 +73,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:background="@android:color/transparent"
         android:src="@drawable/information"
         android:scaleType="centerInside"
-        android:tint="@color/accent_material_dark" />
+        android:tint="@android:color/darker_gray" />
 
 
 </LinearLayout>
@@ -92,11 +95,11 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:adjustViewBounds="false"
         android:scaleType="centerCrop"
         android:textAlignment="center"
-        android:contentDescription="Directions"
+        android:contentDescription="@string/app_name"
         android:cropToPadding="false"
         android:focusable="false"
         android:background="#00ffffff"
-        android:layout_marginRight="20dp" />
+        android:layout_marginEnd="20dp" />
 
     <ImageButton
         android:layout_width="50dp"
@@ -108,11 +111,11 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:adjustViewBounds="false"
         android:scaleType="centerCrop"
         android:textAlignment="gravity"
-        android:contentDescription="Directions"
+        android:contentDescription="@string/app_name"
         android:cropToPadding="false"
         android:focusable="true"
         android:background="#00ffffff"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:baselineAlignBottom="false" />
 
     <ImageButton
@@ -120,6 +123,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:layout_height="50dp"
         android:id="@+id/shareButton"
         android:background="#00ffffff"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/sharevariant"
         android:scaleType="centerCrop"
         android:tint="@android:color/holo_blue_dark" />
@@ -140,7 +144,9 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:layout_marginBottom="10dp"
         android:layout_width="fill_parent"
         android:minHeight="60dp"
+        android:text="dsadas"
         android:id="@+id/markerPromotionCard"
+        android:background="@color/cardview_light_background"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:touchscreenBlocksFocus="true">
@@ -155,6 +161,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:minHeight="60dp"
         android:id="@+id/markerAddressCard"
         android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
         android:visibility="gone">
         <include
             layout="@layout/marker_sub_info"
@@ -166,6 +173,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
         android:layout_width="fill_parent"
         android:minHeight="60dp"
         android:id="@+id/markerDescriptionCard"
+        android:background="@color/cardview_light_background"
         android:layout_height="wrap_content"
         android:visibility="gone">
         <include
@@ -188,6 +196,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
             android:columnCount="2"
             android:padding="10dp"
             android:columnOrderPreserved="true"
+            android:background="@color/cardview_light_background"
             android:rowOrderPreserved="false">
             <TextView
                 android:layout_width="100dp"
@@ -229,8 +238,8 @@ android:divider="@android:drawable/divider_horizontal_dark">
                 android:textColor="#ff333333"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:id="@+id/markerTelephone"
-                android:layout_marginRight="100dp"
-                android:phoneNumber="true" />
+                android:layout_marginEnd="100dp"
+                />
 
 
         </GridLayout>
@@ -244,6 +253,7 @@ android:divider="@android:drawable/divider_horizontal_dark">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             android:minHeight="100dp"
             android:layout_margin="20dp"
             android:id="@+id/markerImage"
